@@ -1,41 +1,97 @@
-# 🛒 **QuantumCart Web**
+# ⚛️ QuantumCart Web
 
-QuantumCart Web is the frontend for the **QuantumCart** platform — a modern webshop built with **Angular 21**, **TypeScript**, and **SCSS**.
-It integrates with the companion backend (**`quantumcart-api`**) to deliver a full e-commerce experience including:
-
-* User authentication (JWT-based)
-* Product browsing
-* Add-to-cart functionality
-* Checkout flow (future)
-* Modern Material 3-style UI
-* Backend running on **Supabase**, **PostgreSQL**, **S3 storage**, and **Go**
+**QuantumCart** is a next-generation e-commerce web application built with **Angular 21**, featuring a **futuristic quantum-inspired UI**, glassmorphism, neon accents, and smooth micro-interactions.
+Designed with performance, clarity, and modern UX in mind.
 
 ---
 
-## 🚀 Development Server
+## 🚀 Features
 
-Start the local Angular development server:
+### 🌀 **Splash Screen**
+
+* Animated quantum-style splash screen
+* Pulsing neon logo
+* Smooth fade-out transition
+
+### 🔐 **Authentication**
+
+* Login & Register pages
+* Clean Material 3 fields styled to match the quantum theme
+* Error handling & form validation ready
+
+### ✨ **UI/UX Design**
+
+* Glassmorphism cards
+* Neon cyan/violet glow accents
+* Gradient quantum buttons
+* Minimalistic, consistent, modern layout
+* Fully responsive for all screen sizes
+
+### 📱 **Responsive**
+
+* Mobile-first layouts
+* Fluid spacing and adaptive sizing
+* Works across all modern browsers
+
+---
+
+## 📁 Project Structure
+
+```
+src/app/
+├── core/
+│   └── components/
+│       └── splash-screen/     # App splash screen component
+│
+├── features/
+│   └── auth/                  # Authentication module
+│       ├── login/             # Login page (Material + custom styling)
+│       └── register/          # Registration page
+│
+├── app.config.ts              # Global Angular configuration
+├── app.routes.ts              # Application routing
+└── app.ts                     # Root application component
+```
+
+---
+
+## 🧩 Tech Stack
+
+* **Angular 21**
+* **Angular Material 3** (themed to match QuantumCart’s design)
+* **SCSS** with custom design tokens
+* **Vitest** for unit testing
+* **Glassmorphism** + **Neon UI** design system
+
+---
+
+## 🛠️ Development
+
+Start a local dev server:
 
 ```bash
 ng serve
 ```
 
-The app will be available at:
-👉 [http://localhost:4200/](http://localhost:4200/)
+Then open:
 
-The server automatically reloads when you change any source files.
+```
+http://localhost:4200/
+```
+
+The app automatically reloads on code changes.
 
 ---
 
-## 🏗️ Code Scaffolding
+## 🧱 Code Scaffolding
 
-Generate new Angular components, services, pipes, and more:
+Generate a new component:
 
 ```bash
 ng generate component component-name
 ```
 
-List all schematics:
+View all available schematics:
 
 ```bash
 ng generate --help
@@ -43,28 +99,22 @@ ng generate --help
 
 ---
 
-## 🧱 Building
+## 🏗️ Build
 
-Build the project:
+To create a production build:
 
 ```bash
 ng build
 ```
 
-Build output goes to the `dist/` directory.
-
-The production build includes:
-
-* Optimized bundles
-* Minified code
-* Tree-shaking
-* Improved performance
+Build artifacts will be stored in `dist/`.
+The production configuration includes optimizations for speed, bundle size, and performance.
 
 ---
 
-## 🧪 Running Unit Tests
+## 🧪 Unit Tests
 
-This project uses **Vitest** for fast unit testing:
+Run unit tests using **Vitest**:
 
 ```bash
 ng test
@@ -72,49 +122,21 @@ ng test
 
 ---
 
-## 🔍 End-to-End Testing
+## 🌐 End-to-End Testing
 
-To run e2e tests:
+E2E tests can be executed via:
 
 ```bash
 ng e2e
 ```
 
-Angular does not ship with an e2e framework by default — choose your preferred solution (Playwright, Cypress, etc.).
+Angular no longer ships with a default E2E framework — you may add Cypress, Playwright, or another tool of your choice.
 
 ---
 
-# 🧩 **Project Stack**
+## 📘 Additional Resources
 
-### **Frontend**
-
-* Angular 21
-* TypeScript
-* SCSS
-* Material-styled components (M3-like)
-* Standalone component architecture
-
-### **Backend (quantumcart-api)**
-
-* Go (REST API)
-* PostgreSQL (via Supabase)
-* Storage using Supabase S3
-* JWT Authentication
-* User endpoints (login, register, get, patch)
-
----
-
-# 🔗 Related Repository
-
-Backend API:
-👉 [https://github.com/FIS-Labs/quantumcart-api](https://github.com/FIS-Labs/quantumcart-api) *(replace if needed)*
-
----
-
-## 📚 Additional Resources
-
-Angular CLI documentation:
-[https://angular.dev/tools/cli](https://angular.dev/tools/cli)
-
-Angular documentation:
-[https://angular.dev](https://angular.dev)
+* Angular CLI Documentation:
+  [https://angular.dev/tools/cli](https://angular.dev/tools/cli)
+* Angular Material Theming Guide:
+  [https://material.angular.dev/guide/theming](https://material.angular.dev/guide/theming)
