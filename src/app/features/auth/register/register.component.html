@@ -1,0 +1,43 @@
+<div class="auth-container">
+    <div class="auth-card">
+
+        <img src="assets/logo.png" class="logo" alt="QuantumCart Logo" />
+
+        <h2>Create Account</h2>
+        <p class="subtitle">Join the quantum marketplace</p>
+
+        <form (ngSubmit)="onSubmit()">
+
+            <mat-form-field appearance="outline" class="auth-field">
+                <mat-label>Full Name</mat-label>
+                <input matInput [(ngModel)]="name" name="name" required />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="auth-field">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" [(ngModel)]="email" name="email" required />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="auth-field">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" [(ngModel)]="password" name="password" required />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="auth-field">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required />
+            </mat-form-field>
+
+            <button mat-raised-button class="btn-primary" color="primary">
+                Sign Up
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Already have an account?
+                <a routerLink="/auth/login">Sign In</a>
+            </p>
+        </div>
+
+    </div>
+</div>

@@ -1,59 +1,142 @@
-# QuantumcartWeb
+# ⚛️ QuantumCart Web
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.1.
+**QuantumCart** is a next-generation e-commerce web application built with **Angular 21**, featuring a **futuristic quantum-inspired UI**, glassmorphism, neon accents, and smooth micro-interactions.
+Designed with performance, clarity, and modern UX in mind.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Features
+
+### 🌀 **Splash Screen**
+
+* Animated quantum-style splash screen
+* Pulsing neon logo
+* Smooth fade-out transition
+
+### 🔐 **Authentication**
+
+* Login & Register pages
+* Clean Material 3 fields styled to match the quantum theme
+* Error handling & form validation ready
+
+### ✨ **UI/UX Design**
+
+* Glassmorphism cards
+* Neon cyan/violet glow accents
+* Gradient quantum buttons
+* Minimalistic, consistent, modern layout
+* Fully responsive for all screen sizes
+
+### 📱 **Responsive**
+
+* Mobile-first layouts
+* Fluid spacing and adaptive sizing
+* Works across all modern browsers
+
+---
+
+## 📁 Project Structure
+
+```
+src/app/
+├── core/
+│   └── components/
+│       └── splash-screen/     # App splash screen component
+│
+├── features/
+│   └── auth/                  # Authentication module
+│       ├── login/             # Login page (Material + custom styling)
+│       └── register/          # Registration page
+│
+├── app.config.ts              # Global Angular configuration
+├── app.routes.ts              # Application routing
+└── app.ts                     # Root application component
+```
+
+---
+
+## 🧩 Tech Stack
+
+* **Angular 21**
+* **Angular Material 3** (themed to match QuantumCart’s design)
+* **SCSS** with custom design tokens
+* **Vitest** for unit testing
+* **Glassmorphism** + **Neon UI** design system
+
+---
+
+## 🛠️ Development
+
+Start a local dev server:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Then open:
 
-## Code scaffolding
+```
+http://localhost:4200/
+```
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+The app automatically reloads on code changes.
+
+---
+
+## 🧱 Code Scaffolding
+
+Generate a new component:
 
 ```bash
 ng generate component component-name
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+View all available schematics:
 
 ```bash
 ng generate --help
 ```
 
-## Building
+---
 
-To build the project run:
+## 🏗️ Build
+
+To create a production build:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Build artifacts will be stored in `dist/`.
+The production configuration includes optimizations for speed, bundle size, and performance.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## 🧪 Unit Tests
+
+Run unit tests using **Vitest**:
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 🌐 End-to-End Testing
+
+E2E tests can be executed via:
 
 ```bash
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Angular no longer ships with a default E2E framework — you may add Cypress, Playwright, or another tool of your choice.
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📘 Additional Resources
+
+* Angular CLI Documentation:
+  [https://angular.dev/tools/cli](https://angular.dev/tools/cli)
+* Angular Material Theming Guide:
+  [https://material.angular.dev/guide/theming](https://material.angular.dev/guide/theming)

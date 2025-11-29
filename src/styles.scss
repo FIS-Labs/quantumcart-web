@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'styles/material-theme';
+
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at center, #1a1a2e 0%, #0f0f1a 100%);
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+}
