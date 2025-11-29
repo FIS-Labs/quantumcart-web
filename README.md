@@ -118,5 +118,3 @@ Angular CLI documentation:
 
 Angular documentation:
 [https://angular.dev](https://angular.dev)
-
----
