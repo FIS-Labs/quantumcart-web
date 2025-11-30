@@ -1,0 +1,32 @@
+<div class="product-list-container">
+
+  <!-- FILTER + SORT BAR -->
+  <div class="filter-bar">
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Category</mat-label>
+      <mat-select [(ngModel)]="selectedCategory" (selectionChange)="applyFilters()">
+        <mat-option value="all">All</mat-option>
+        <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Sort By</mat-label>
+      <mat-select [(ngModel)]="sortOption" (selectionChange)="applySorting()">
+        <mat-option value="priceAsc">Price: Low → High</mat-option>
+        <mat-option value="priceDesc">Price: High → Low</mat-option>
+        <mat-option value="ratingDesc">Rating: High → Low</mat-option>
+        <mat-option value="nameAsc">Name: A → Z</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- PRODUCT GRID -->
+  <div class="product-grid">
+    <product-card
+      *ngFor="let product of displayedProducts"
+      [product]="product">
+    </product-card>
+  </div>
+
+</div>
