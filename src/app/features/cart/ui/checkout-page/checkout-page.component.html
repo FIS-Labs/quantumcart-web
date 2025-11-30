@@ -1,0 +1,95 @@
+<div class="checkout-container">
+
+  <!-- FORM AREA -->
+  <div class="form-column">
+
+    <h1 class="page-title">Checkout</h1>
+
+    <!-- DELIVERY ADDRESS -->
+    <div class="card glass">
+      <h2 class="section-title">Delivery Address</h2>
+      <div class="form-grid">
+        <input type="text" placeholder="Full Name" [(ngModel)]="name" />
+        <input type="text" placeholder="Street Address" [(ngModel)]="street" />
+        <input type="text" placeholder="City" [(ngModel)]="city" />
+        <input type="text" placeholder="Postal Code" [(ngModel)]="postal" />
+        <input type="text" placeholder="Country" [(ngModel)]="country" />
+      </div>
+    </div>
+
+    <!-- PAYMENT -->
+    <div class="card glass">
+      <h2 class="section-title">Payment Method</h2>
+      <div class="options">
+        <button class="option"
+                [class.selected]="paymentMethod === 'credit'"
+                (click)="paymentMethod = 'credit'">
+          💳 Credit Card
+        </button>
+
+        <button class="option"
+                [class.selected]="paymentMethod === 'paypal'"
+                (click)="paymentMethod = 'paypal'">
+          🟦 PayPal
+        </button>
+
+        <button class="option"
+                [class.selected]="paymentMethod === 'crypto'"
+                (click)="paymentMethod = 'crypto'">
+          🪙 Crypto
+        </button>
+      </div>
+    </div>
+
+    <!-- DELIVERY -->
+    <div class="card glass">
+      <h2 class="section-title">Delivery Method</h2>
+      <div class="options">
+        <button class="option"
+                [class.selected]="deliveryMethod === 'standard'"
+                (click)="deliveryMethod = 'standard'">
+          Standard (3–5 days)
+        </button>
+
+        <button class="option"
+                [class.selected]="deliveryMethod === 'express'"
+                (click)="deliveryMethod = 'express'">
+          Express (1–2 days)
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ORDER SUMMARY (NOW BELOW) -->
+  <div class="summary-wrapper">
+    <div class="card summary glass">
+
+      <h2 class="section-title">Order Summary</h2>
+
+      <div class="summary-items">
+        <div class="summary-item" *ngFor="let item of items">
+          <img [src]="item.product.imageUrl" />
+          <div>
+            <p class="name">{{ item.product.name }}</p>
+            <small class="qty">Quantity: {{ item.quantity }}</small>
+          </div>
+          <strong class="price">€{{ (item.product.price * item.quantity) | number:'1.2-2' }}</strong>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="summary-total">
+        <span>Total:</span>
+        <span class="total-price">€{{ total | number:'1.2-2' }}</span>
+      </div>
+
+      <button class="btn-primary" (click)="placeOrder()">
+        Place Order
+      </button>
+
+    </div>
+  </div>
+
+</div>
