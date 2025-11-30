@@ -1,0 +1,19 @@
+<div class="product-card" [routerLink]="['/products', product.id]">
+
+  <div class="image-wrapper">
+    <img [src]="product.imageUrl" [alt]="product.name" />
+
+    <!-- DISCOUNT BADGE -->
+    <span class="discount" *ngIf="product.oldPrice">
+      -{{ ((1 - product.price / product.oldPrice) * 100) | number:'1.0-0' }}%
+    </span>
+  </div>
+
+  <h3 class="title">{{ product.name }}</h3>
+
+  <div class="price">
+    <span class="current">€{{ product.price | number:'1.2-2' }}</span>
+    <span class="old" *ngIf="product.oldPrice">€{{ product.oldPrice }}</span>
+  </div>
+
+</div>

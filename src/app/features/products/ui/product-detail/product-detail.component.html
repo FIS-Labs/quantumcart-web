@@ -1,0 +1,38 @@
+<div class="detail-wrapper">
+
+  <div class="detail-card">
+
+    <!-- IMAGE -->
+    <div class="image-wrapper">
+      <img [src]="product.imageUrl" alt="{{ product.name }}" />
+
+      <!-- RATING BADGE -->
+      <span class="rating-badge">⭐ {{ product.rating }}</span>
+
+      <!-- DISCOUNT BADGE -->
+      <span class="discount" *ngIf="product.oldPrice">
+        -{{ ((1 - product.price / product.oldPrice) * 100) | number:'1.0-0' }}%
+      </span>
+    </div>
+
+    <!-- TITLE -->
+    <h1 class="title">{{ product.name }}</h1>
+
+    <!-- PRICE AREA -->
+    <div class="price-area">
+      <span class="current">€{{ product.price | number:'1.2-2' }}</span>
+      <span class="old" *ngIf="product.oldPrice">€{{ product.oldPrice }}</span>
+    </div>
+
+    <!-- CATEGORY CHIP -->
+    <span class="category-chip">{{ product.category }}</span>
+
+    <!-- DESCRIPTION -->
+    <p class="description">{{ product.description }}</p>
+
+    <!-- BUTTON (FULL WIDTH) -->
+    <button mat-raised-button class="btn-primary">Add to Cart</button>
+
+  </div>
+
+</div>

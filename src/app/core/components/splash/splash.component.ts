@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
     selector: 'app-splash',
     standalone: true,
     imports: [CommonModule],
-    templateUrl: './splash-screen.component.html',
-    styleUrls: ['./splash-screen.component.scss']
+    templateUrl: './splash.component.html',
+    styleUrls: ['./splash.component.scss']
 })
 export class SplashScreenComponent implements OnInit {
     showSplash = true;

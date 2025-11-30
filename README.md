@@ -1,7 +1,7 @@
 # ⚛️ QuantumCart Web
 
-**QuantumCart** is a next-generation e-commerce web application built with **Angular 21**, featuring a **futuristic quantum-inspired UI**, glassmorphism, neon accents, and smooth micro-interactions.
-Designed with performance, clarity, and modern UX in mind.
+**QuantumCart** is a next–generation **tech-themed e-commerce** web application built with **Angular 21**, featuring a fully modernized UI with *glassmorphism*, *neon energy accents*, and *smooth micro-interactions*.
+Designed with clean architecture, scalability, and premium UX in mind.
 
 ---
 
@@ -9,89 +9,133 @@ Designed with performance, clarity, and modern UX in mind.
 
 ### 🌀 **Splash Screen**
 
-* Animated quantum-style splash screen
-* Pulsing neon logo
-* Smooth fade-out transition
-
-### 🔐 **Authentication**
-
-* Login & Register pages
-* Clean Material 3 fields styled to match the quantum theme
-* Error handling & form validation ready
-
-### ✨ **UI/UX Design**
-
-* Glassmorphism cards
-* Neon cyan/violet glow accents
-* Gradient quantum buttons
-* Minimalistic, consistent, modern layout
-* Fully responsive for all screen sizes
-
-### 📱 **Responsive**
-
-* Mobile-first layouts
-* Fluid spacing and adaptive sizing
-* Works across all modern browsers
+* Animated quantum waveform logo
+* Subtle pulsing glow/energy effect
+* Auto-dismiss transition
 
 ---
 
-## 📁 Project Structure
+### 🔐 **Authentication**
+
+* Login & Register screens
+* Optimized Material 3 input fields
+* Quantum-styled glassmorphic auth cards
+* Neon gradient primary action buttons
+* Validation ready for backend wiring
+
+---
+
+### 🛒 **Product Catalog (Tech Store)**
+
+* Fully dynamic product card grid
+* Responsive layout, hover zoom effects
+* Category filtering
+* Sorting (price, rating, name)
+* Reusable `<product-card>` component
+* True plug-and-play usage across the app
+* Static mock data designed for **laptop & PC hardware** shop
+
+---
+
+### 🔍 **Product Detail View**
+
+* Modern single-product page
+* Large hero image
+* Neon-highlight pricing
+* Category, rating, description
+* QuantumCart-styled **Add to Cart** button
+* Mobile-friendly layout
+
+---
+
+### ✨ **Quantum UI/UX**
+
+* Glassmorphism layers
+* Neon cyan/violet glow accents
+* Animated cards and buttons
+* Smooth transitions everywhere
+* Pixel-perfect responsive behavior
+
+---
+
+## 📱 Responsive Design
+
+* Fully mobile-first
+* Adaptive grid for product cards
+* Stack-to-column layout for product detail
+* Soft container padding & spacing scale
+
+---
+
+## 📂 Project Structure (Clean Architecture)
 
 ```
 src/app/
 ├── core/
 │   └── components/
-│       └── splash-screen/     # App splash screen component
+│       └── splash-screen/
 │
 ├── features/
-│   └── auth/                  # Authentication module
-│       ├── login/             # Login page (Material + custom styling)
-│       └── register/          # Registration page
+│   ├── auth/
+│   │   ├── login-screen/
+│   │   └── register-screen/
+│   │
+│   └── products/
+│       ├── data/                 # Static mock data (computers & hardware)
+│       ├── domain/               # Models/interfaces
+│       ├── ui/
+│       │   ├── product-list/     # Catalog page
+│       │   ├── product-detail/   # Detail page
+│       │   └── components/
+│       │       └── product-card/ # Reusable card component
 │
-├── app.config.ts              # Global Angular configuration
-├── app.routes.ts              # Application routing
-└── app.ts                     # Root application component
+├── app.config.ts
+├── app.routes.ts
+└── app.ts
 ```
+
+This structure provides isolation between **data**, **domain**, and **UI**, preparing you for backend wiring in later tickets.
 
 ---
 
 ## 🧩 Tech Stack
 
 * **Angular 21**
-* **Angular Material 3** (themed to match QuantumCart’s design)
-* **SCSS** with custom design tokens
-* **Vitest** for unit testing
-* **Glassmorphism** + **Neon UI** design system
+* **Angular Material 3** (custom themed)
+* **SCSS** with design tokens, neon palette
+* **Vitest** for testing
+* **Modern clean architecture layout**
+* **Quantum UI system** (neon + glassmorphism)
 
 ---
 
-## 🛠️ Development
+## 🛠 Development
 
-Start a local dev server:
+Start the dev server:
 
 ```bash
 ng serve
 ```
 
-Then open:
+Navigate to:
 
 ```
 http://localhost:4200/
 ```
 
-The app automatically reloads on code changes.
+Live reload enabled automatically.
 
 ---
 
 ## 🧱 Code Scaffolding
 
-Generate a new component:
+Generate new components:
 
 ```bash
 ng generate component component-name
 ```
 
-View all available schematics:
+List all schematics:
 
 ```bash
 ng generate --help
@@ -99,22 +143,21 @@ ng generate --help
 
 ---
 
-## 🏗️ Build
+## 🏗 Build
 
-To create a production build:
+Generate production build:
 
 ```bash
 ng build
 ```
 
-Build artifacts will be stored in `dist/`.
-The production configuration includes optimizations for speed, bundle size, and performance.
+Output will be in the `dist/` folder with optimization applied automatically.
 
 ---
 
 ## 🧪 Unit Tests
 
-Run unit tests using **Vitest**:
+Run all unit tests via:
 
 ```bash
 ng test
@@ -124,19 +167,22 @@ ng test
 
 ## 🌐 End-to-End Testing
 
-E2E tests can be executed via:
+You can run E2E tests with:
 
 ```bash
 ng e2e
 ```
 
-Angular no longer ships with a default E2E framework — you may add Cypress, Playwright, or another tool of your choice.
+Angular does not include a built-in E2E solution — integrate Cypress, Playwright, or WebdriverIO based on your preference.
 
 ---
 
-## 📘 Additional Resources
+## 📘 Resources
 
-* Angular CLI Documentation:
+* Angular CLI Docs:
   [https://angular.dev/tools/cli](https://angular.dev/tools/cli)
-* Angular Material Theming Guide:
+
+* Angular Material Theming:
   [https://material.angular.dev/guide/theming](https://material.angular.dev/guide/theming)
+
+---
