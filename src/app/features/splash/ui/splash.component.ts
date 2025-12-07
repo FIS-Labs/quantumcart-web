@@ -11,11 +11,9 @@ import { AuthFacade } from '../../auth/domain/auth.facade';
   styleUrls: ['./splash.component.scss'],
 })
 export class SplashScreenComponent implements OnInit {
-  /** Injected services */
   private router = inject(Router);
   private authFacade = inject(AuthFacade);
 
-  /** UI state */
   showSplash = true;
   opacityChange = 1;
 

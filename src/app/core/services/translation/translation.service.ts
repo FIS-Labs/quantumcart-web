@@ -1,4 +1,3 @@
-// src/app/core/services/i18n/i18n.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Lang, TranslationKey } from '../../models/translation/translation.types';

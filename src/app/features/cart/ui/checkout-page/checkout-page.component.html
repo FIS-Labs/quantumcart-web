@@ -1,12 +1,9 @@
 <div class="checkout-container">
-  <!-- FORM COLUMN -->
   <div class="form-column">
-    <!-- ADDRESS -->
     <div class="card glass">
       <h2 class="section-title">{{ translationService.t('deliveryAddress') }}</h2>
 
       <div class="form-grid">
-        <!-- NAME -->
         <input
           type="text"
           [(ngModel)]="name"
@@ -17,7 +14,6 @@
           {{ translationService.t('requiredField') }}
         </small>
 
-        <!-- STREET -->
         <input
           type="text"
           [(ngModel)]="street"
@@ -28,7 +24,6 @@
           {{ translationService.t('requiredField') }}
         </small>
 
-        <!-- CITY -->
         <input
           type="text"
           [(ngModel)]="city"
@@ -39,7 +34,6 @@
           {{ translationService.t('requiredField') }}
         </small>
 
-        <!-- POSTAL -->
         <input
           type="text"
           [(ngModel)]="postal"
@@ -50,7 +44,6 @@
           {{ translationService.t('requiredField') }}
         </small>
 
-        <!-- COUNTRY -->
         <input
           type="text"
           [(ngModel)]="country"
@@ -63,7 +56,6 @@
       </div>
     </div>
 
-    <!-- PAYMENT -->
     <div class="card glass">
       <h2 class="section-title">{{ translationService.t('paymentMethod') }}</h2>
 
@@ -80,19 +72,18 @@
           [class.selected]="paymentMethod === 'paypal'"
           (click)="paymentMethod = 'paypal'"
         >
-          🟦 PayPal
+          🟦 {{ translationService.t('paypal') }}
         </button>
         <button
           class="option"
           [class.selected]="paymentMethod === 'crypto'"
           (click)="paymentMethod = 'crypto'"
         >
-          🪙 Crypto
+          🪙 {{ translationService.t('crypto') }}
         </button>
       </div>
     </div>
 
-    <!-- DELIVERY -->
     <div class="card glass">
       <h2 class="section-title">{{ translationService.t('deliveryMethod') }}</h2>
 
@@ -115,7 +106,6 @@
     </div>
   </div>
 
-  <!-- SUMMARY -->
   <div class="summary-wrapper">
     <div class="card summary glass">
       <h2 class="section-title">{{ translationService.t('orderSummary') }}</h2>
@@ -135,9 +125,26 @@
 
       <hr class="divider" />
 
+      <div class="summary-breakdown">
+        <div class="summary-row">
+          <span>{{ translationService.t('subtotal') }}:</span>
+          <span>€{{ subtotal | number: '1.2-2' }}</span>
+        </div>
+        <div class="summary-row">
+          <span>{{ translationService.t('tax') }}:</span>
+          <span>€{{ taxAmount | number: '1.2-2' }}</span>
+        </div>
+        <div class="summary-row">
+          <span>{{ translationService.t('deliveryCost') }}:</span>
+          <span>€{{ deliveryCost | number: '1.2-2' }}</span>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
       <div class="summary-total">
-        <span>{{ translationService.t('total') }}:</span>
-        <span class="total-price">€{{ total | number: '1.2-2' }}</span>
+        <span>{{ translationService.t('grandTotal') }}:</span>
+        <span class="total-price">€{{ grandTotal | number: '1.2-2' }}</span>
       </div>
 
       <button class="btn-primary" (click)="placeOrder()">

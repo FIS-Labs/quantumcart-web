@@ -20,12 +20,10 @@ import { ProductFacade } from '../../domain/product.facade';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  /** Injected services */
   translationService = inject(TranslationService);
   private facade = inject(ProductFacade);
   private router = inject(Router);
 
-  /** Data */
   displayedProducts: Product[] = [];
   rawProducts: Product[] = [];
 
@@ -46,7 +44,6 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  /** Load paged products */
   loadData() {
     this.facade.getPaged(this.page, this.pageSize).subscribe((result) => {
       this.rawProducts = result.items;
@@ -58,7 +55,6 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  /** Build dynamic category list */
   populateCategories() {
     const lang = this.translationService.currentLang;
 
@@ -67,7 +63,6 @@ export class ProductListComponent implements OnInit {
     ];
   }
 
-  /** Apply category filter */
   applyFilters() {
     const lang = this.translationService.currentLang;
 
@@ -82,7 +77,6 @@ export class ProductListComponent implements OnInit {
     this.applySorting();
   }
 
-  /** Apply sorting */
   applySorting() {
     switch (this.sortOption) {
       case 'priceAsc':
@@ -103,7 +97,6 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  /** Pagination handlers */
   nextPage() {
     if (this.page < this.totalPages) {
       this.page++;

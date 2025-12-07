@@ -12,12 +12,10 @@ export class ProductFacade {
   private page$ = new BehaviorSubject(1);
   private readonly PAGE_SIZE = 12;
 
-  /** Raw paged fetch */
   getPaged(page: number, size: number) {
     return this.repo.getAllPaged(page, size);
   }
 
-  /** Reactive paginated products with translation applied */
   products$ = this.page$.pipe(
     switchMap((page) => this.repo.getAllPaged(page, this.PAGE_SIZE)),
     map((result) => ({
@@ -26,12 +24,10 @@ export class ProductFacade {
     })),
   );
 
-  /** Load product by id + apply translation */
   getProductById(id: number) {
     return this.repo.getById(id).pipe(map((p) => (p ? this.mapTranslated(p) : undefined)));
   }
 
-  /** Page navigation */
   nextPage() {
     this.page$.next(this.page$.value + 1);
   }
@@ -42,7 +38,6 @@ export class ProductFacade {
     }
   }
 
-  /** Internal translation mapper */
   private mapTranslated(p: Product): Product {
     const lang = this.translationService.currentLang;
 

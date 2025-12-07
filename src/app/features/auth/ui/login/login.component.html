@@ -38,6 +38,9 @@
           [placeholder]="translationService.t('password')"
           required
         />
+        <a routerLink="/auth/forgot-password" class="forgot-password-link">
+          {{ translationService.t('forgotPassword') }}
+        </a>
       </div>
 
       <button class="btn-primary">{{ translationService.t('signIn') }}</button>

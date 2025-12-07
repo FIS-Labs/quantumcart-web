@@ -24,7 +24,6 @@ export class OrdersPageComponent implements OnInit {
     });
   }
 
-  /** Helper for translated status */
   getStatus(order: Order): string {
     return this.translationService.currentLang === 'en'
       ? order.status
