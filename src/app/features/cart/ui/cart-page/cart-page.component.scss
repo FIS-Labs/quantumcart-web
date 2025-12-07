@@ -10,16 +10,6 @@
   gap: 2rem;
 }
 
-/* TITLE (MATCH CHECKOUT TITLES) */
-.title {
-  font-size: 2.4rem;
-  font-weight: 700;
-  background: linear-gradient(45deg, #fff, #cfdfff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 0 0 1rem;
-}
-
 .empty {
   text-align: center;
   opacity: 0.7;
@@ -40,15 +30,15 @@
   padding: 1.6rem;
 
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(0,255,255,0.15);
+  border: 1px solid rgba(0, 255, 255, 0.15);
   backdrop-filter: blur(12px);
   border-radius: 18px;
 
   transition: 0.25s ease;
 
   box-shadow:
-    0 0 20px rgba(0,255,255,0.08),
-    0 0 30px rgba(138,43,226,0.08);
+    0 0 20px rgba(0, 255, 255, 0.08),
+    0 0 30px rgba(138, 43, 226, 0.08);
 }
 
 /* PRODUCT IMAGE */
@@ -83,8 +73,8 @@
 .chip {
   padding: 0.25rem 0.7rem;
   border-radius: 12px;
-  background: rgba(0,255,255,0.12);
-  border: 1px solid rgba(0,255,255,0.3);
+  background: rgba(0, 255, 255, 0.12);
+  border: 1px solid rgba(0, 255, 255, 0.3);
   font-size: 0.75rem;
 }
 
@@ -129,15 +119,15 @@
     padding: 0.5rem;
     border-radius: 10px;
 
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(0,255,255,0.3);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 255, 255, 0.3);
     color: white;
   }
 
   .remove {
     color: #ff4f6d;
-    background: rgba(255,70,90,0.1);
-    border: 1px solid rgba(255,70,90,0.4);
+    background: rgba(255, 70, 90, 0.1);
+    border: 1px solid rgba(255, 70, 90, 0.4);
 
     padding: 0.45rem 0.9rem;
     border-radius: 10px;
@@ -146,7 +136,7 @@
     transition: 0.25s ease;
 
     &:hover {
-      background: rgba(255,70,90,0.25);
+      background: rgba(255, 70, 90, 0.25);
       transform: translateY(-2px);
     }
   }
@@ -159,8 +149,8 @@
   padding: 1.4rem 2rem;
   margin-top: 2rem;
 
-  background: rgba(255,255,255,0.05);
-  border-top: 1px solid rgba(0,255,255,0.18);
+  background: rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(0, 255, 255, 0.18);
   backdrop-filter: blur(18px);
 
   display: flex;
@@ -170,8 +160,8 @@
 
   border-radius: 18px;
   box-shadow:
-    0 -10px 20px rgba(0,255,255,0.12),
-    0 -6px 20px rgba(138,43,226,0.12);
+    0 -10px 20px rgba(0, 255, 255, 0.12),
+    0 -6px 20px rgba(138, 43, 226, 0.12);
 }
 
 .checkout-bar .total {
@@ -191,15 +181,15 @@
   color: white !important;
 
   box-shadow:
-    0 0 18px rgba(0,255,255,0.25),
-    0 0 18px rgba(138,43,226,0.25);
+    0 0 18px rgba(0, 255, 255, 0.25),
+    0 0 18px rgba(138, 43, 226, 0.25);
 
   transition: 0.25s;
 
   &:hover {
     transform: translateY(-3px);
     box-shadow:
-      0 10px 25px rgba(138,43,226,0.45),
-      0 5px 20px rgba(0,255,255,0.45);
+      0 10px 25px rgba(138, 43, 226, 0.45),
+      0 5px 20px rgba(0, 255, 255, 0.45);
   }
 }

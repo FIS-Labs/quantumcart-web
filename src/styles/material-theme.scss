@@ -4,13 +4,18 @@
 @include mat.core();
 
 // Define the theme using Material 3 API
-$quantum-theme: mat.define-theme((color: (theme-type: dark,
-                primary: mat.$magenta-palette,
-                tertiary: mat.$violet-palette,
-            ),
-            density: (scale: 0,
-            ),
-        ));
+$quantum-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: mat.$magenta-palette,
+      tertiary: mat.$violet-palette,
+    ),
+    density: (
+      scale: 0,
+    ),
+  )
+);
 
 // Apply the theme to all Material components
 @include mat.all-component-themes($quantum-theme);

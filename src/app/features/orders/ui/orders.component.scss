@@ -1,0 +1,184 @@
+.orders-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: white;
+}
+
+.empty {
+  text-align: center;
+  opacity: 0.7;
+  font-size: 1.2rem;
+}
+
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* ----------------------------- */
+/*        COLLAPSIBLE CARD       */
+/* ----------------------------- */
+
+details.order-card {
+  cursor: pointer;
+}
+
+summary.order-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] {
+  box-shadow:
+    0 6px 15px rgba(0, 255, 255, 0.12),
+    0 6px 15px rgba(138, 43, 226, 0.12);
+}
+
+/* ----------------------------- */
+/* ORIGINAL CARD STYLE (untouched) */
+/* ----------------------------- */
+
+.order-card {
+  padding: 1.4rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  color: white;
+
+  display: flex;
+  flex-direction: column; /* changed to allow expansion */
+  gap: 1rem;
+
+  transition: 0.25s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 6px 15px rgba(0, 255, 255, 0.12),
+      0 6px 15px rgba(138, 43, 226, 0.12);
+  }
+}
+
+/* ----------------------------- */
+/* DETAILS BODY (expanded section) */
+/* ----------------------------- */
+
+.details-body {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.item-img {
+  width: 55px;
+  height: 55px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.address-block {
+  opacity: 0.85;
+  margin-bottom: 1rem;
+}
+
+/* ----------------------------- */
+/* ORIGINAL ROW + STATUS STYLES  */
+/* ----------------------------- */
+
+.row {
+  display: flex;
+  flex-direction: column;
+
+  .label {
+    opacity: 0.6;
+    font-size: 0.8rem;
+  }
+
+  .value {
+    font-weight: 600;
+  }
+
+  .price {
+    color: #00ffff;
+  }
+
+  .id {
+    letter-spacing: 0.5px;
+  }
+}
+
+.status {
+  padding: 0.4rem 1rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.85rem;
+
+  &.delivered {
+    background: rgba(0, 255, 0, 0.15);
+    border: 1px solid rgba(0, 255, 0, 0.35);
+  }
+
+  &.shipped {
+    background: rgba(0, 128, 255, 0.15);
+    border: 1px solid rgba(0, 128, 255, 0.35);
+  }
+
+  &.processing {
+    background: rgba(255, 255, 0, 0.15);
+    border: 1px solid rgba(255, 255, 0, 0.35);
+  }
+}
+
+/* Arrow indicator */
+.expand-icon {
+  width: 12px;
+  height: 12px;
+  border-right: 2px solid #00ffff;
+  border-bottom: 2px solid #00ffff;
+  transform: rotate(45deg);
+  transition: transform 0.25s ease;
+  margin-left: 1rem;
+  opacity: 0.8;
+}
+
+/* Rotate when open */
+details[open] .expand-icon {
+  transform: rotate(-135deg);
+}
+
+/* Make summary layout allow arrow alignment */
+summary.order-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  gap: 1rem;
+}

@@ -1,0 +1,70 @@
+<div class="orders-container">
+  <div *ngIf="orders.length === 0" class="empty">
+    {{ translationService.t('noPastOrders') }}
+  </div>
+
+  <div class="order-list" *ngIf="orders.length > 0">
+    <details class="order-card" *ngFor="let order of orders">
+      <summary class="order-summary">
+        <div class="row">
+          <span class="label">{{ translationService.t('order') }}</span>
+          <span class="value id">#{{ order.id }}</span>
+        </div>
+
+        <div class="row">
+          <span class="label">{{ translationService.t('date') }}</span>
+          <span class="value">{{ order.createdAt | date: 'mediumDate' }}</span>
+        </div>
+
+        <div class="row">
+          <span class="label">{{ translationService.t('items') }}</span>
+          <span class="value">{{ order.items.length }}</span>
+        </div>
+
+        <div class="row">
+          <span class="label">{{ translationService.t('total') }}</span>
+          <span class="value price">€{{ order.total | number: '1.2-2' }}</span>
+        </div>
+
+        <div
+          class="status"
+          [class.delivered]="order.status === 'Delivered'"
+          [class.shipped]="order.status === 'Shipped'"
+          [class.processing]="order.status === 'Processing'"
+        >
+          {{ getStatus(order) }}
+        </div>
+        <span class="expand-icon"></span>
+      </summary>
+
+      <!-- EXPANDED DETAILS -->
+      <div class="details-body">
+        <h4>{{ translationService.t('items') }}</h4>
+        <div class="item-list">
+          <div class="item" *ngFor="let item of order.items">
+            <img [src]="item.imageUrl" class="item-img" />
+            <div class="item-info">
+              <div class="item-name">{{ item.name }}</div>
+              <div class="item-qty">x{{ item.quantity }}</div>
+              <div class="item-price">€{{ item.price | number: '1.2-2' }}</div>
+            </div>
+          </div>
+        </div>
+
+        <h4>{{ translationService.t('shippingAddress') }}</h4>
+        <div class="address-block">
+          <div>{{ order.shippingAddress.name }}</div>
+          <div>{{ order.shippingAddress.street }}</div>
+          <div>{{ order.shippingAddress.city }}, {{ order.shippingAddress.postalCode }}</div>
+          <div>{{ order.shippingAddress.country }}</div>
+        </div>
+
+        <h4>{{ translationService.t('paymentMethod') }}</h4>
+        <div class="value">{{ order.paymentMethod }}</div>
+
+        <h4>{{ translationService.t('deliveryMethod') }}</h4>
+        <div class="value">{{ order.deliveryMethod }}</div>
+      </div>
+    </details>
+  </div>
+</div>

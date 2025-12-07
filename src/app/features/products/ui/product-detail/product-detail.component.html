@@ -1,15 +1,13 @@
-<div class="detail-wrapper">
-
+<div class="detail-wrapper" *ngIf="product">
   <div class="detail-card">
-
     <!-- IMAGE -->
     <div class="image-wrapper">
-      <img [src]="product.imageUrl" alt="{{ product.name }}" />
+      <img [src]="product.imageUrl" [alt]="product.name" />
 
       <span class="rating-badge">⭐ {{ product.rating }}</span>
 
       <span class="discount" *ngIf="product.oldPrice">
-        -{{ ((1 - product.price / product.oldPrice) * 100) | number:'1.0-0' }}%
+        -{{ (1 - product.price / product.oldPrice) * 100 | number: '1.0-0' }}%
       </span>
     </div>
 
@@ -18,27 +16,29 @@
 
     <!-- PRICE -->
     <div class="price-area">
-      <span class="current">€{{ product.price | number:'1.2-2' }}</span>
+      <span class="current">€{{ product.price | number: '1.2-2' }}</span>
       <span class="old" *ngIf="product.oldPrice">€{{ product.oldPrice }}</span>
     </div>
 
     <!-- CATEGORY -->
-    <span class="category-chip">{{ product.category }}</span>
+    <span class="category-chip">
+      {{ translationService.currentLang === 'en' ? product.category : product.categoryDe }}
+    </span>
 
     <!-- DESCRIPTION -->
-    <p class="description">{{ product.description }}</p>
+    <p class="description">
+      {{ translationService.currentLang === 'en' ? product.description : product.descriptionDe }}
+    </p>
 
     <!-- BUTTONS -->
     <div class="button-row">
       <button mat-raised-button class="btn-primary" (click)="addToCart()">
-        Add to Cart
+        {{ translationService.t('addToCart') }}
       </button>
 
       <button mat-raised-button class="btn-secondary" routerLink="/cart">
-        Go to Cart
+        {{ translationService.t('goToCart') }}
       </button>
     </div>
-
   </div>
-
 </div>

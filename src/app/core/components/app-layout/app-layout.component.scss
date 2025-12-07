@@ -1,0 +1,148 @@
+/* FULL-WIDTH BACKGROUND WRAPPER */
+.navbar {
+  width: 100%;
+  padding: 0.8rem 0;
+
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.12);
+  box-shadow:
+    0 4px 12px rgba(0, 255, 255, 0.05),
+    0 4px 12px rgba(138, 43, 226, 0.05);
+
+  display: flex;
+  justify-content: center; /* Centers the INNER content */
+}
+
+/* CENTERED NAV CONTENT */
+.navbar-inner {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 1rem; /* optional padding */
+}
+
+/* LEFT SECTION */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+/* LOGO — smaller and cleaner */
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+
+  transition: 0.25s;
+
+  filter: drop-shadow(0 0 4px rgba(0, 255, 255, 0.25));
+}
+
+/* LINKS */
+.nav-left a {
+  font-size: 0.95rem;
+  color: white;
+  opacity: 0.75;
+  text-decoration: none;
+  position: relative;
+
+  padding: 0.2rem 0;
+  transition: 0.25s;
+
+  &:hover {
+    opacity: 1;
+    color: #00ffff;
+  }
+
+  &.active::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #00ffff;
+    border-radius: 2px;
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.5);
+  }
+}
+
+/* RIGHT SECTION */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* CART ICON BUTTON */
+.icon-btn {
+  font-size: 1.2rem;
+  padding: 0.4rem 0.6rem;
+
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 255, 255, 0.18);
+
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+
+  transition: 0.25s;
+
+  &:hover {
+    background: rgba(0, 255, 255, 0.12);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  }
+
+  &.active {
+    background: rgba(0, 255, 255, 0.12);
+    border-color: #00ffff;
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
+  }
+}
+
+/* LANGUAGE DROPDOWN — compact version */
+.lang-switch {
+  padding: 0.35rem 0.6rem;
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 255, 255, 0.18);
+
+  color: white;
+  font-size: 0.85rem;
+  cursor: pointer;
+
+  transition: 0.25s;
+
+  &:hover {
+    background: rgba(0, 255, 255, 0.12);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  }
+
+  option {
+    background: #0b0f19;
+  }
+}
+
+.logout-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 80, 80, 0.35);
+  background: rgba(255, 80, 80, 0.15);
+  color: #ff6b6b;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+
+  &:hover {
+    background: rgba(255, 80, 80, 0.25);
+    box-shadow: 0 0 10px rgba(255, 80, 80, 0.4);
+    color: white;
+  }
+}

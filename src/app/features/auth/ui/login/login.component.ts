@@ -1,31 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
+import { TranslationService } from './../../../../core/services/translation/translation.service';
+import { AuthFacade } from '../../domain/auth.facade';
+
 @Component({
-    selector: 'app-login',
-    standalone: true,
-    imports: [
-        CommonModule,
-        RouterLink,
-        FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule
-    ],
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
+  selector: 'app-login',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterLink,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+  ],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-    email = '';
-    password = '';
+  translationService = inject(TranslationService);
+  private authFacade = inject(AuthFacade);
+  private router = inject(Router);
 
-    onSubmit() {
-        console.log('Login:', this.email);
-    }
+  email = '';
+  password = '';
+
+  onSubmit() {
+    this.authFacade
+      .login({
+        email: this.email,
+        password: this.password,
+      })
+      .subscribe({
+        next: () => this.router.navigate(['/products']),
+        error: (err) => alert(err.message),
+      });
+  }
 }

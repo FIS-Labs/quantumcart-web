@@ -1,32 +1,53 @@
+<div class="lang-wrapper">
+  <select
+    class="lang-switch"
+    [ngModel]="translationService.currentLang"
+    (ngModelChange)="translationService.switchLang($event)"
+  >
+    <option value="en">🇬🇧 EN</option>
+    <option value="de">🇩🇪 DE</option>
+  </select>
+</div>
+
 <div class="auth-container">
   <div class="auth-card glass">
-
     <img src="assets/logo.png" alt="QuantumCart Logo" class="logo" />
 
-    <h2 class="page-title">Welcome Back</h2>
-    <p class="subtitle">Sign in to continue</p>
+    <h2 class="page-title">{{ translationService.t('welcomeBack') }}</h2>
+
+    <p class="subtitle">{{ translationService.t('signInToContinue') }}</p>
 
     <form (ngSubmit)="onSubmit()" class="form-grid">
-
       <div class="input-group">
-        <label>Email</label>
-        <input type="email" [(ngModel)]="email" name="email" required />
+        <label>{{ translationService.t('email') }}</label>
+        <input
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          [placeholder]="translationService.t('email')"
+          required
+        />
       </div>
 
       <div class="input-group">
-        <label>Password</label>
-        <input type="password" [(ngModel)]="password" name="password" required />
+        <label>{{ translationService.t('password') }}</label>
+        <input
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          [placeholder]="translationService.t('password')"
+          required
+        />
       </div>
 
-      <button class="btn-primary">Sign In</button>
-
+      <button class="btn-primary">{{ translationService.t('signIn') }}</button>
     </form>
 
     <div class="auth-footer">
-      <p>Don't have an account?
-        <a routerLink="/auth/register">Sign Up</a>
+      <p>
+        {{ translationService.t('noAccount') }}
+        <a routerLink="/auth/register">{{ translationService.t('signUp') }}</a>
       </p>
     </div>
-
   </div>
 </div>

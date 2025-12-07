@@ -17,25 +17,17 @@
   gap: 2rem;
 }
 
-.page-title {
-  font-size: 2.4rem;
-  font-weight: 700;
-  background: linear-gradient(45deg, #fff, #cfdfff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 /* GLASS CARD (SAME STYLE AS CART ITEMS) */
 .glass {
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(0,255,255,0.15);
+  border: 1px solid rgba(0, 255, 255, 0.15);
   backdrop-filter: blur(12px);
   border-radius: 18px;
   padding: 1.6rem;
 
   box-shadow:
-    0 0 20px rgba(0,255,255,0.08),
-    0 0 30px rgba(138,43,226,0.08);
+    0 0 20px rgba(0, 255, 255, 0.08),
+    0 0 30px rgba(138, 43, 226, 0.08);
 }
 
 /* SECTION TITLE */
@@ -54,15 +46,15 @@
   input {
     padding: 0.85rem;
     border-radius: 12px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     color: white;
     font-size: 0.95rem;
 
     &:focus {
       outline: none;
       border-color: #00ffff;
-      box-shadow: 0 0 10px rgba(0,255,255,0.25);
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.25);
     }
   }
 }
@@ -78,21 +70,21 @@
     font-size: 0.95rem;
     border-radius: 12px;
 
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     color: white;
     cursor: pointer;
 
     transition: 0.25s ease;
 
     &:hover {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.1);
     }
 
     &.selected {
       border-color: #00ffff;
-      background: rgba(0,255,255,0.15);
-      box-shadow: 0 0 12px rgba(0,255,255,0.25);
+      background: rgba(0, 255, 255, 0.15);
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.25);
     }
   }
 }
@@ -181,7 +173,19 @@
   &:hover {
     transform: translateY(-3px);
     box-shadow:
-      0 10px 25px rgba(138,43,226,0.35),
-      0 5px 20px rgba(0,255,255,0.35);
+      0 10px 25px rgba(138, 43, 226, 0.35),
+      0 5px 20px rgba(0, 255, 255, 0.35);
   }
+}
+
+.invalid {
+  border: 1px solid #ff4f6d !important;
+  background: rgba(255, 80, 80, 0.1) !important;
+}
+
+.error {
+  color: #ff4f6d;
+  font-size: 0.75rem;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
 }
