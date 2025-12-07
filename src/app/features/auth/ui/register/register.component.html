@@ -1,12 +1,14 @@
-<div class="lang-wrapper">
-  <select
-    class="lang-switch"
-    [ngModel]="translationService.currentLang"
-    (ngModelChange)="translationService.switchLang($event)"
-  >
-    <option value="en">🇬🇧 EN</option>
-    <option value="de">🇩🇪 DE</option>
-  </select>
+<div class="auth-header">
+  <a routerLink="/products" class="btn-guest-header">
+    👤 {{ translationService.t('continueAsGuest') }}
+  </a>
+  <div class="lang-wrapper">
+    <select class="lang-switch" [ngModel]="translationService.currentLang"
+      (ngModelChange)="translationService.switchLang($event)">
+      <option value="en">🇬🇧 EN</option>
+      <option value="de">🇩🇪 DE</option>
+    </select>
+  </div>
 </div>
 
 <div class="auth-container">
@@ -19,47 +21,27 @@
 
     <form (ngSubmit)="onSubmit()" class="form-grid">
       <div class="input-group">
-        <label>{{ translationService.t('fullName') }}</label>
-        <input
-          type="text"
-          [(ngModel)]="name"
-          name="name"
-          [placeholder]="translationService.t('fullName')"
-          required
-        />
+        <label for="reg-name">{{ translationService.t('fullName') }}</label>
+        <input type="text" id="reg-name" [(ngModel)]="name" name="name" [placeholder]="translationService.t('fullName')"
+          required />
       </div>
 
       <div class="input-group">
-        <label>{{ translationService.t('email') }}</label>
-        <input
-          type="email"
-          [(ngModel)]="email"
-          name="email"
-          [placeholder]="translationService.t('email')"
-          required
-        />
+        <label for="reg-email">{{ translationService.t('email') }}</label>
+        <input type="email" id="reg-email" [(ngModel)]="email" name="email"
+          [placeholder]="translationService.t('email')" required />
       </div>
 
       <div class="input-group">
-        <label>{{ translationService.t('password') }}</label>
-        <input
-          type="password"
-          [(ngModel)]="password"
-          name="password"
-          [placeholder]="translationService.t('password')"
-          required
-        />
+        <label for="reg-password">{{ translationService.t('password') }}</label>
+        <input type="password" id="reg-password" [(ngModel)]="password" name="password"
+          [placeholder]="translationService.t('password')" required />
       </div>
 
       <div class="input-group">
-        <label>{{ translationService.t('confirmPassword') }}</label>
-        <input
-          type="password"
-          [(ngModel)]="confirmPassword"
-          name="confirmPassword"
-          [placeholder]="translationService.t('confirmPassword')"
-          required
-        />
+        <label for="reg-confirm">{{ translationService.t('confirmPassword') }}</label>
+        <input type="password" id="reg-confirm" [(ngModel)]="confirmPassword" name="confirmPassword"
+          [placeholder]="translationService.t('confirmPassword')" required />
       </div>
 
       <button class="btn-primary">{{ translationService.t('signUp') }}</button>

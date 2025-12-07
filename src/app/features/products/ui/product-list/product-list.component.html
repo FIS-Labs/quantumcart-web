@@ -1,20 +1,19 @@
 <div class="product-list-container">
-  <!-- FILTER + SORT BAR -->
   <div class="filter-bar">
-    <!-- CATEGORY FILTER -->
     <mat-form-field appearance="outline" class="filter-field">
       <mat-label>{{ translationService.t('category') }}</mat-label>
 
       <mat-select [(ngModel)]="selectedCategory" (selectionChange)="applyFilters()">
         <mat-option value="all">{{ translationService.t('all') }}</mat-option>
 
-        <mat-option *ngFor="let cat of categories" [value]="cat">
+        @for (cat of categories; track cat) {
+        <mat-option [value]="cat">
           {{ cat }}
         </mat-option>
+        }
       </mat-select>
     </mat-form-field>
 
-    <!-- SORT FILTER -->
     <mat-form-field appearance="outline" class="filter-field">
       <mat-label>{{ translationService.t('sortBy') }}</mat-label>
       <mat-select [(ngModel)]="sortOption" (selectionChange)="applySorting()">
@@ -24,19 +23,51 @@
         <mat-option value="nameAsc">{{ translationService.t('nameAZ') }}</mat-option>
       </mat-select>
     </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>{{ translationService.t('brand') }}</mat-label>
+      <mat-select [(ngModel)]="selectedBrand" (selectionChange)="applyFilters()">
+        <mat-option value="all">{{ translationService.t('all') }}</mat-option>
+        @for (brand of brands; track brand) {
+        <mat-option [value]="brand">{{ brand }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <div class="filter-group">
+      <span class="label-text">{{ translationService.t('priceRange') }}</span>
+      <div class="price-inputs">
+        <input type="number" [(ngModel)]="minPrice" (change)="applyFilters()" class="price-input"
+          [placeholder]="translationService.t('min')" />
+        <span>-</span>
+        <input type="number" [(ngModel)]="maxPrice" (change)="applyFilters()" class="price-input"
+          [placeholder]="translationService.t('max')" />
+      </div>
+    </div>
+
+    <div class="filter-group checkbox-group">
+      <label>
+        <input type="checkbox" [(ngModel)]="showOutOfStock" (change)="applyFilters()" />
+        {{ translationService.t('outOfStock') }}
+      </label>
+    </div>
   </div>
 
-  <!-- PRODUCT GRID -->
   <div class="product-grid">
-    <product-card *ngFor="let product of displayedProducts" [product]="product"> </product-card>
+    @for (product of displayedProducts; track product) {
+    <app-product-card [product]="product"> </app-product-card>
+    }
   </div>
 
-  <!-- PAGINATION -->
-  <div class="pagination-bar" *ngIf="total > pageSize">
-    <button class="pg-btn" (click)="previousPage()" [disabled]="page === 1">⬅</button>
-
+  @if (total > pageSize) {
+  <div class="pagination-bar">
+    <button class="pg-btn" (click)="previousPage()" [disabled]="page === 1" aria-label="Previous Page">
+      ⬅
+    </button>
     <span class="pg-label"> {{ page }} / {{ totalPages }} </span>
-
-    <button class="pg-btn" (click)="nextPage()" [disabled]="page === totalPages">➡</button>
+    <button class="pg-btn" (click)="nextPage()" [disabled]="page === totalPages" aria-label="Next Page">
+      ➡
+    </button>
   </div>
+  }
 </div>

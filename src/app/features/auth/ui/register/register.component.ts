@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -15,14 +15,13 @@ import { AuthFacade } from '../../domain/auth.facade';
   selector: 'app-register',
   standalone: true,
   imports: [
-    CommonModule,
     RouterLink,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDividerModule,
-  ],
+    MatDividerModule
+],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
@@ -55,7 +54,15 @@ export class RegisterComponent {
       })
       .subscribe({
         next: () => this.router.navigate(['/auth/login']),
-        error: (err) => alert(err.message),
+        error: (err) => {
+          const errorKey = this.mapAuthError(err.message);
+          alert(this.translationService.t(errorKey));
+        },
       });
+  }
+
+  private mapAuthError(message: string): 'userAlreadyExists' | 'registrationError' {
+    if (message.includes('already exists')) return 'userAlreadyExists';
+    return 'registrationError';
   }
 }

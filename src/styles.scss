@@ -8,3 +8,42 @@ body {
   font-family: 'Inter', sans-serif;
   color: #fff;
 }
+
+// Global Back Button Style
+.back-btn {
+  position: absolute;
+  top: 7rem;
+  /* Below navbar (approx) or relative to container */
+  left: 2rem;
+  z-index: 90;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.6rem 1.1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  transition: 0.2s ease;
+  font-size: 0.95rem;
+  text-decoration: none;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-3px);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.15);
+    border-color: rgba(0, 255, 255, 0.3);
+  }
+
+  @media(max-width: 768px) {
+    top: 5.5rem;
+    left: 1rem;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.85rem;
+  }
+}

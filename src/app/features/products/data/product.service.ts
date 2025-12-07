@@ -16,6 +16,10 @@ export class ProductService {
     };
   }
 
+  getAll(): Product[] {
+    return PRODUCTS;
+  }
+
   getById(id: number): Product | undefined {
     return PRODUCTS.find((p) => p.id === id);
   }

@@ -22,4 +22,6 @@ export interface Order {
     postalCode: string;
     country: string;
   };
+  email: string; // [NEW] Contact email (for guests and users)
+  userId?: number; // [NEW] Optional link to registered user
 }

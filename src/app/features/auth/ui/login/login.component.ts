@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -14,13 +14,12 @@ import { AuthFacade } from '../../domain/auth.facade';
   selector: 'app-login',
   standalone: true,
   imports: [
-    CommonModule,
     RouterLink,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,
-  ],
+    MatButtonModule
+],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
@@ -40,7 +39,16 @@ export class LoginComponent {
       })
       .subscribe({
         next: () => this.router.navigate(['/products']),
-        error: (err) => alert(err.message),
+        error: (err) => {
+          const errorKey = this.mapAuthError(err.message);
+          alert(this.translationService.t(errorKey));
+        },
       });
+  }
+
+  private mapAuthError(message: string): 'userNotFound' | 'invalidPassword' | 'loginError' {
+    if (message.includes('not found')) return 'userNotFound';
+    if (message.includes('Invalid password')) return 'invalidPassword';
+    return 'loginError';
   }
 }

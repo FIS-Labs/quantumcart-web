@@ -1,17 +1,36 @@
-<div class="product-card" [routerLink]="['/products', product.id]">
+<div class="product-card" [routerLink]="['/products', product.id]"
+  [attr.aria-label]="'View details for ' + product.name" [title]="product.name">
   <div class="image-wrapper">
     <img [src]="product.imageUrl" [alt]="product.name" />
-
-    <!-- DISCOUNT BADGE -->
-    <span class="discount" *ngIf="product.oldPrice">
-      -{{ (1 - product.price / product.oldPrice) * 100 | number: '1.0-0' }}%
-    </span>
   </div>
 
-  <h3 class="title">{{ product.name }}</h3>
+  <div class="card-content">
+    <div class="meta-row">
+      @if (product.rating > 0) {
+        <span class="rating-badge">
+          <span class="star">★</span> {{ product.rating }}
+        </span>
+      }
 
-  <div class="price">
-    <span class="current">€{{ product.price | number: '1.2-2' }}</span>
-    <span class="old" *ngIf="product.oldPrice">€{{ product.oldPrice }}</span>
+      @if (!product.inStock) {
+        <span class="stock-status out">
+          {{ translationService.t('outOfStock') }}
+        </span>
+      }
+    </div>
+
+    <h3 class="title">{{ product.name }}</h3>
+
+    <div class="price-row">
+      <span class="current">€{{ product.price | number: '1.2-2' }}</span>
+      @if (product.oldPrice) {
+        <span class="old">€{{ product.oldPrice }}</span>
+      }
+      @if (product.oldPrice) {
+        <span class="discount-badge">
+          -{{ (1 - product.price / product.oldPrice) * 100 | number: '1.0-0' }}%
+        </span>
+      }
+    </div>
   </div>
 </div>

@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { AuthRepository } from './auth.repository';
-import { LoginRequest, RegisterRequest } from './auth.model';
+import { LoginRequest, RegisterRequest, UpdateProfileRequest } from './auth.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthFacade {
-  constructor(private repo: AuthRepository) {}
+  private repo = inject(AuthRepository);
+
+
 
   register(req: RegisterRequest) {
     return this.repo.register(req);
@@ -24,5 +26,17 @@ export class AuthFacade {
 
   isLoggedIn() {
     return this.repo.isLoggedIn();
+  }
+
+  deleteAccount() {
+    return this.repo.deleteAccount();
+  }
+
+  updateProfile(req: UpdateProfileRequest) {
+    return this.repo.updateProfile(req);
+  }
+
+  requestPasswordReset(email: string) {
+    return this.repo.requestPasswordReset(email);
   }
 }

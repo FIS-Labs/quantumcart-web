@@ -1,44 +1,91 @@
-<div class="detail-wrapper" *ngIf="product">
-  <div class="detail-card">
-    <!-- IMAGE -->
-    <div class="image-wrapper">
-      <img [src]="product.imageUrl" [alt]="product.name" />
-
-      <span class="rating-badge">⭐ {{ product.rating }}</span>
-
-      <span class="discount" *ngIf="product.oldPrice">
-        -{{ (1 - product.price / product.oldPrice) * 100 | number: '1.0-0' }}%
-      </span>
-    </div>
-
-    <!-- TITLE -->
-    <h1 class="title">{{ product.name }}</h1>
-
-    <!-- PRICE -->
-    <div class="price-area">
-      <span class="current">€{{ product.price | number: '1.2-2' }}</span>
-      <span class="old" *ngIf="product.oldPrice">€{{ product.oldPrice }}</span>
-    </div>
-
-    <!-- CATEGORY -->
-    <span class="category-chip">
-      {{ translationService.currentLang === 'en' ? product.category : product.categoryDe }}
-    </span>
-
-    <!-- DESCRIPTION -->
-    <p class="description">
-      {{ translationService.currentLang === 'en' ? product.description : product.descriptionDe }}
-    </p>
-
-    <!-- BUTTONS -->
-    <div class="button-row">
-      <button mat-raised-button class="btn-primary" (click)="addToCart()">
-        {{ translationService.t('addToCart') }}
-      </button>
-
-      <button mat-raised-button class="btn-secondary" routerLink="/cart">
-        {{ translationService.t('goToCart') }}
-      </button>
+@if (product) {
+  <div class="detail-wrapper">
+    <button class="back-btn" (click)="goBack()">
+      ⬅ {{ translationService.t('back') }}
+    </button>
+    <div class="detail-card">
+      <div class="product-main-content">
+        <div class="left-col">
+          <div class="image-wrapper">
+            <img [src]="product.imageUrl" [alt]="product.name" />
+          </div>
+        </div>
+        <div class="right-col">
+          @if (product.brand) {
+            <div class="brand-badge">
+              {{ product.brand }}
+            </div>
+          }
+          <h1 class="title">{{ product.name }}</h1>
+          @if (product.rating > 0) {
+            <div class="rating-row">
+              <span class="rating-badge">
+                <span class="star">★</span> {{ product.rating }}
+              </span>
+            </div>
+          }
+          <span class="category-chip">
+            {{ translationService.currentLang === 'en' ? product.category : product.categoryDe }}
+          </span>
+          <p class="description">
+            {{ translationService.currentLang === 'en' ? product.description : product.descriptionDe }}
+          </p>
+          <div class="action-area">
+            <div class="price-area">
+              <span class="current">€{{ product.price | number: '1.2-2' }}</span>
+              @if (product.oldPrice) {
+                <span class="old">€{{ product.oldPrice }}</span>
+              }
+              @if (product.oldPrice) {
+                <span class="discount-badge">
+                  -{{ (1 - product.price / product.oldPrice) * 100 | number: '1.0-0' }}%
+                </span>
+              }
+            </div>
+            <button mat-raised-button class="btn-primary" (click)="addToCart()" [disabled]="!product.inStock">
+              {{ product.inStock ? translationService.t('addToCart') : translationService.t('outOfStock') }}
+            </button>
+          </div>
+        </div>
+      </div>
+      @if (getSpecs()) {
+        <div class="specs-section">
+          <h3>{{ translationService.t('specs') }}</h3>
+          <div class="specs-grid">
+            @for (key of objectKeys(getSpecs()); track key) {
+              <div class="spec-item">
+                <span class="label">{{ getSpecLabel(key) }}:</span>
+                <span class="value">{{ getSpecs()[key] }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      }
+      @if (getWarranty()) {
+        <div class="warranty-section">
+          <h3>{{ translationService.t('warranty') }}</h3>
+          <p>🛡️ {{ getWarranty() }}</p>
+        </div>
+      }
+      @if (product.reviews && product.reviews.length > 0) {
+        <div class="reviews-section">
+          <h3>{{ translationService.t('reviews') }} ({{ product.reviews.length }})</h3>
+          <div class="reviews-grid">
+            @for (review of product.reviews; track review) {
+              <div class="review-card">
+                <div class="review-top">
+                  <span class="user">{{ review.user }}</span>
+                  <span class="rating">
+                    <span class="star">★</span> {{ review.rating }}
+                  </span>
+                </div>
+                <p class="comment">{{ getReviewComment(review) }}</p>
+                <span class="date">{{ review.date | date:'mediumDate':undefined:translationService.currentLang }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      }
     </div>
   </div>
-</div>
+}

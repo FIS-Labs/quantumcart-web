@@ -1,43 +1,60 @@
+<a href="#main-content" class="skip-link">Skip to content</a>
 <nav class="navbar glass">
   <div class="navbar-inner">
-    <!-- LEFT SECTION -->
     <div class="nav-left">
-      <img src="assets/logo.png" class="logo" />
+      <img src="assets/logo.png" class="logo" alt="QuantumCart Logo" />
 
       <a routerLink="/products" routerLinkActive="active">
         {{ translationService.t('products') }}
       </a>
 
+      <a routerLink="/stores" routerLinkActive="active">
+        {{ translationService.t('stores') }}
+      </a>
+
+      @if (isLoggedIn) {
       <a routerLink="/orders" routerLinkActive="active">
         {{ translationService.t('orders') }}
       </a>
+      }
 
+      @if (isLoggedIn) {
       <a routerLink="/profile" routerLinkActive="active">
         {{ translationService.t('profile') }}
       </a>
+      }
     </div>
 
-    <!-- RIGHT SECTION -->
     <div class="nav-right">
-      <!-- Cart -->
-      <a routerLink="/cart" class="icon-btn" routerLinkActive="active">🛒</a>
+      <a routerLink="/cart" class="icon-btn cart-btn" routerLinkActive="active">
+        🛒
+        @if ((cartCount$ | async); as count) {
+        <span class="badge">{{ count }}</span>
+        }
+      </a>
 
-      <!-- Language Switch -->
       <select class="lang-switch" [ngModel]="lang" (ngModelChange)="changeLang($event)">
         <option value="en">🇬🇧 EN</option>
         <option value="de">🇩🇪 DE</option>
       </select>
 
-      <!-- LOGOUT BUTTON -->
-      <button class="logout-btn" (click)="logout()">
+      @if (!isLoggedIn) {
+      <a routerLink="/auth/login" class="nav-btn">
+        {{ translationService.t('signIn') }}
+      </a>
+      }
+
+      @if (isLoggedIn) {
+      <button class="nav-btn logout" (click)="logout()">
         {{ translationService.t('logout') }}
       </button>
+      }
     </div>
   </div>
 </nav>
 
 <div class="content-wrapper">
-  <div class="content-card glass">
+  <div class="content-card glass" id="main-content">
     <router-outlet></router-outlet>
   </div>
 </div>

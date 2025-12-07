@@ -1,148 +1,151 @@
 <div class="checkout-container">
-  <!-- FORM COLUMN -->
+  <button class="back-btn" (click)="goBack()">⬅ {{ translationService.t('back') }}</button>
+
+  <!-- Step 1: Auth Selection -->
+  @if (checkoutStep === 'auth-selection') {
   <div class="form-column">
-    <!-- ADDRESS -->
+    <div class="card glass auth-choice">
+      <h2 class="section-title text-center">{{ translationService.t('proceedPrompt') }}</h2>
+      <div class="auth-options">
+        <div class="auth-card">
+          <div class="icon">👤</div>
+          <h3>{{ translationService.t('returningCustomer') }}</h3>
+          <p>{{ translationService.t('loginPrompt') }}</p>
+          <button class="btn-primary" (click)="goToLogin()">{{ translationService.t('loginToAccount') }}</button>
+        </div>
+        <div class="divider-vertical">
+          <span>{{ translationService.t('or') }}</span>
+        </div>
+        <div class="auth-card">
+          <div class="icon">🚀</div>
+          <h3>{{ translationService.t('guestCheckout') }}</h3>
+          <p>{{ translationService.t('guestPrompt') }}</p>
+          <button class="btn-secondary" (click)="continueAsGuest()">{{ translationService.t('continueAsGuest')
+            }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- Step 2: Shipping Form -->
+  @if (checkoutStep === 'shipping-form') {
+  <div class="form-column">
     <div class="card glass">
       <h2 class="section-title">{{ translationService.t('deliveryAddress') }}</h2>
-
       <div class="form-grid">
-        <!-- NAME -->
-        <input
-          type="text"
-          [(ngModel)]="name"
-          [placeholder]="translationService.t('fullName')"
-          [class.invalid]="submitted && !name"
-        />
-        <small class="error" *ngIf="submitted && !name">
+        <input type="text" [(ngModel)]="name" [placeholder]="translationService.t('fullName')"
+          [class.invalid]="submitted && !name" />
+        @if (submitted && !name) {
+        <small class="error">
           {{ translationService.t('requiredField') }}
         </small>
-
-        <!-- STREET -->
-        <input
-          type="text"
-          [(ngModel)]="street"
-          [placeholder]="translationService.t('streetAddress')"
-          [class.invalid]="submitted && !street"
-        />
-        <small class="error" *ngIf="submitted && !street">
+        }
+        <input type="email" [(ngModel)]="email" [placeholder]="translationService.t('email')"
+          [class.invalid]="submitted && !email" />
+        @if (submitted && !email) {
+        <small class="error">
           {{ translationService.t('requiredField') }}
         </small>
-
-        <!-- CITY -->
-        <input
-          type="text"
-          [(ngModel)]="city"
-          [placeholder]="translationService.t('city')"
-          [class.invalid]="submitted && !city"
-        />
-        <small class="error" *ngIf="submitted && !city">
+        }
+        <input type="text" [(ngModel)]="street" [placeholder]="translationService.t('streetAddress')"
+          [class.invalid]="submitted && !street" />
+        @if (submitted && !street) {
+        <small class="error">
           {{ translationService.t('requiredField') }}
         </small>
-
-        <!-- POSTAL -->
-        <input
-          type="text"
-          [(ngModel)]="postal"
-          [placeholder]="translationService.t('postalCode')"
-          [class.invalid]="submitted && !postal"
-        />
-        <small class="error" *ngIf="submitted && !postal">
+        }
+        <input type="text" [(ngModel)]="city" [placeholder]="translationService.t('city')"
+          [class.invalid]="submitted && !city" />
+        @if (submitted && !city) {
+        <small class="error">
           {{ translationService.t('requiredField') }}
         </small>
-
-        <!-- COUNTRY -->
-        <input
-          type="text"
-          [(ngModel)]="country"
-          [placeholder]="translationService.t('country')"
-          [class.invalid]="submitted && !country"
-        />
-        <small class="error" *ngIf="submitted && !country">
+        }
+        <input type="text" [(ngModel)]="postal" [placeholder]="translationService.t('postalCode')"
+          [class.invalid]="submitted && !postal" />
+        @if (submitted && !postal) {
+        <small class="error">
           {{ translationService.t('requiredField') }}
         </small>
+        }
+        <input type="text" [(ngModel)]="country" [placeholder]="translationService.t('country')"
+          [class.invalid]="submitted && !country" />
+        @if (submitted && !country) {
+        <small class="error">
+          {{ translationService.t('requiredField') }}
+        </small>
+        }
       </div>
     </div>
-
-    <!-- PAYMENT -->
     <div class="card glass">
       <h2 class="section-title">{{ translationService.t('paymentMethod') }}</h2>
-
       <div class="options">
-        <button
-          class="option"
-          [class.selected]="paymentMethod === 'credit'"
-          (click)="paymentMethod = 'credit'"
-        >
+        <button class="option" [class.selected]="paymentMethod === 'credit'" (click)="paymentMethod = 'credit'">
           💳 {{ translationService.t('creditCard') }}
         </button>
-        <button
-          class="option"
-          [class.selected]="paymentMethod === 'paypal'"
-          (click)="paymentMethod = 'paypal'"
-        >
-          🟦 PayPal
+        <button class="option" [class.selected]="paymentMethod === 'paypal'" (click)="paymentMethod = 'paypal'">
+          🟦 {{ translationService.t('paypal') }}
         </button>
-        <button
-          class="option"
-          [class.selected]="paymentMethod === 'crypto'"
-          (click)="paymentMethod = 'crypto'"
-        >
-          🪙 Crypto
+        <button class="option" [class.selected]="paymentMethod === 'crypto'" (click)="paymentMethod = 'crypto'">
+          🪙 {{ translationService.t('crypto') }}
         </button>
       </div>
     </div>
-
-    <!-- DELIVERY -->
     <div class="card glass">
       <h2 class="section-title">{{ translationService.t('deliveryMethod') }}</h2>
-
       <div class="options">
-        <button
-          class="option"
-          [class.selected]="deliveryMethod === 'standard'"
-          (click)="deliveryMethod = 'standard'"
-        >
+        <button class="option" [class.selected]="deliveryMethod === 'standard'" (click)="deliveryMethod = 'standard'">
           {{ translationService.t('standardDelivery') }}
         </button>
-        <button
-          class="option"
-          [class.selected]="deliveryMethod === 'express'"
-          (click)="deliveryMethod = 'express'"
-        >
+        <button class="option" [class.selected]="deliveryMethod === 'express'" (click)="deliveryMethod = 'express'">
           {{ translationService.t('expressDelivery') }}
         </button>
       </div>
     </div>
   </div>
+  }
 
-  <!-- SUMMARY -->
+  @if (checkoutStep === 'shipping-form') {
   <div class="summary-wrapper">
     <div class="card summary glass">
       <h2 class="section-title">{{ translationService.t('orderSummary') }}</h2>
-
       <div class="summary-items">
-        <div class="summary-item" *ngFor="let item of items">
-          <img [src]="item.imageUrl" />
-
+        @for (item of items; track item) {
+        <div class="summary-item">
+          <img [src]="item.imageUrl" [alt]="item.name" />
           <div>
             <p class="name">{{ item.name }}</p>
             <small class="qty">{{ translationService.t('quantity') }}: {{ item.quantity }}</small>
           </div>
-
           <strong class="price"> €{{ item.price * item.quantity | number: '1.2-2' }} </strong>
         </div>
+        }
       </div>
-
       <hr class="divider" />
-
-      <div class="summary-total">
-        <span>{{ translationService.t('total') }}:</span>
-        <span class="total-price">€{{ total | number: '1.2-2' }}</span>
+      <div class="summary-breakdown">
+        <div class="summary-row">
+          <span>{{ translationService.t('subtotal') }}:</span>
+          <span>€{{ subtotal | number: '1.2-2' }}</span>
+        </div>
+        <div class="summary-row">
+          <span>{{ translationService.t('tax') }}:</span>
+          <span>€{{ taxAmount | number: '1.2-2' }}</span>
+        </div>
+        <div class="summary-row">
+          <span>{{ translationService.t('deliveryCost') }}:</span>
+          <span>€{{ deliveryCost | number: '1.2-2' }}</span>
+        </div>
       </div>
-
+      <hr class="divider" />
+      <div class="summary-total">
+        <span>{{ translationService.t('grandTotal') }}:</span>
+        <span class="total-price">€{{ grandTotal | number: '1.2-2' }}</span>
+      </div>
       <button class="btn-primary" (click)="placeOrder()">
         {{ translationService.t('placeOrder') }}
       </button>
     </div>
   </div>
+  }
 </div>

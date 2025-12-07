@@ -12,6 +12,10 @@ export class ProductRepositoryImpl implements ProductRepository {
     return of(this.api.getAllPaged(page, pageSize));
   }
 
+  getAll(): Observable<Product[]> {
+    return of(this.api.getAll());
+  }
+
   getById(id: number): Observable<Product | undefined> {
     return of(this.api.getById(id));
   }

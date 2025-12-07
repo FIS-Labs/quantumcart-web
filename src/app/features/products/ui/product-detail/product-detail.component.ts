@@ -1,5 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+import { TranslationKey } from '../../../../core/models/translation/translation.types';
+import { CommonModule, Location } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslationService } from '../../../../core/services/translation/translation.service';
 import { Product } from '../../domain/product.model';
@@ -17,6 +19,9 @@ export class ProductDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private facade = inject(ProductFacade);
   private cartFacade = inject(CartFacade);
+  private location = inject(Location);
+  private titleService = inject(Title);
+  private cdr = inject(ChangeDetectorRef);
   translationService = inject(TranslationService);
 
   product!: Product;
@@ -30,10 +35,49 @@ export class ProductDetailComponent implements OnInit {
         return;
       }
       this.product = product;
+      this.titleService.setTitle(`QuantumCart - ${product.name}`);
+    });
+
+    // Force update on language change
+    this.translationService.lang$.subscribe(() => {
+      this.cdr.detectChanges();
     });
   }
 
   addToCart() {
     this.cartFacade.addProduct(this.product);
+  }
+
+  objectKeys(obj: Record<string, unknown>): string[] {
+    return Object.keys(obj);
+  }
+
+  getSpecLabel(key: string): string {
+    return this.translationService.t(key as TranslationKey);
+  }
+
+  getSpecs(): Record<string, string> {
+    if (this.translationService.currentLang === 'de' && this.product.specsDe) {
+      return this.product.specsDe;
+    }
+    return this.product.specs || {};
+  }
+
+  getWarranty(): string {
+    if (this.translationService.currentLang === 'de' && this.product.warrantyDe) {
+      return this.product.warrantyDe;
+    }
+    return this.product.warranty || '';
+  }
+
+  getReviewComment(review: { comment: string, commentDe?: string }): string {
+    if (this.translationService.currentLang === 'de' && review.commentDe) {
+      return review.commentDe;
+    }
+    return review.comment;
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

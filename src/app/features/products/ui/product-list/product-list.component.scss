@@ -3,31 +3,107 @@
   color: white;
 }
 
-/* FILTER BAR */
 .filter-bar {
   display: flex;
   gap: 1.5rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1rem;
+  border-radius: 12px;
 
   .filter-field {
-    width: 220px;
+    width: 200px;
+    margin-bottom: -1.25rem;
 
     --mdc-outlined-text-field-container-color: rgba(255, 255, 255, 0.06);
     --mdc-outlined-text-field-label-text-color: rgba(255, 255, 255, 0.7);
     --mdc-outlined-text-field-input-text-color: white;
   }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .price-inputs {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+
+      .price-input {
+        width: 80px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        /* Softer radius */
+        padding: 0.6rem;
+        color: white;
+        text-align: center;
+        /* Center text */
+
+        &:focus {
+          border-color: #00ffff;
+          outline: none;
+          box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+        }
+
+        /* Remove arrows from number input */
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        -moz-appearance: textfield;
+        appearance: textfield;
+      }
+    }
+  }
+
+  .checkbox-group {
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    /* Align with other fields */
+    margin-top: 0.2rem;
+    padding-left: 1rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+
+    label {
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: rgba(255, 255, 255, 0.85);
+
+      /* Custom Checkbox Look */
+      input[type="checkbox"] {
+        accent-color: #00ffff;
+        width: 1rem;
+        height: 1rem;
+        cursor: pointer;
+      }
+    }
+  }
 }
 
-/* PRODUCT GRID */
 .product-grid {
   display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 3rem;
+  /* Increased Row Space */
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 }
 
-/* PAGINATION BAR */
 .pagination-bar {
-  margin-top: 2.5rem;
+  margin-top: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,16 +124,16 @@
     0 0 30px rgba(138, 43, 226, 0.08);
 }
 
-/* PAGE LABEL */
 .pg-label {
   font-weight: 600;
   letter-spacing: 1px;
   background: linear-gradient(45deg, #fff, #cfdfff);
+  background: linear-gradient(45deg, #fff, #cfdfff);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* PAGINATION BUTTONS */
 .pg-btn {
   padding: 0.55rem 1rem;
   font-size: 1.1rem;
@@ -88,7 +164,6 @@
   }
 }
 
-/* MOBILE */
 @media (max-width: 480px) {
   .pagination-bar {
     gap: 1rem;

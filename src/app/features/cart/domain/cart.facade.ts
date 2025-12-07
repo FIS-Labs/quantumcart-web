@@ -1,6 +1,8 @@
 import { Injectable, inject } from '@angular/core';
+import { map } from 'rxjs';
 import { CartRepository } from '../domain/cart.repository';
 import { CartItem } from '../domain/cart.model';
+import { Product } from '../../products/domain/product.model';
 
 @Injectable({ providedIn: 'root' })
 export class CartFacade {
@@ -8,7 +10,11 @@ export class CartFacade {
 
   cart$ = this.repo.getCart();
 
-  addProduct(product: any) {
+  cartCount$ = this.cart$.pipe(
+    map((cart) => cart.items.reduce((acc: number, item: CartItem) => acc + item.quantity, 0))
+  );
+
+  addProduct(product: Product) {
     const item: CartItem = {
       productId: product.id,
       name: product.name,
@@ -17,6 +23,8 @@ export class CartFacade {
       imageUrl: product.imageUrl,
       category: product.category,
       categoryDe: product.categoryDe,
+      oldPrice: product.oldPrice,
+      rating: product.rating,
     };
     this.repo.addItem(item);
   }
