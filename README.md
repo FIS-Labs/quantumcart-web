@@ -1,6 +1,6 @@
 # ⚛️ QuantumCart Web
 
-**QuantumCart** is a next–generation **tech-themed e-commerce** web application built with **Angular 21**, featuring a futuristic UI with *glassmorphism*, *neon energy gradients*, soft shadows, and polished interactions.
+**QuantumCart** is a next–generation **tech-themed e-commerce** web application built with **Angular 21**, featuring a futuristic UI with _glassmorphism_, _neon energy gradients_, soft shadows, and polished interactions.
 Designed with clean architecture, modular features, and a premium shopping experience.
 
 ---
@@ -9,71 +9,117 @@ Designed with clean architecture, modular features, and a premium shopping exper
 
 ### 🌀 **Splash Screen**
 
-* Animated quantum waveform logo
-* Neon-glowing energy pulse
-* Auto-dismiss + smooth fade transition
+- Animated quantum waveform logo
+- Neon-glowing energy pulse
+- Auto-dismiss + smooth fade transition
 
 ---
 
 ### 🔐 **Authentication**
 
-* Login & Register screens
-* Elegant input fields with neon focus
-* Glassmorphic auth cards
-* Gradient primary buttons
-* Ready to connect to real backend (JWT-friendly)
+- Login & Register screens
+- Elegant input fields with neon focus
+- Glassmorphic auth cards
+- Gradient primary buttons
+- Ready for backend (JWT, user profiles)
 
 ---
 
 ### 🛒 **Product Catalog**
 
-* Dynamic multi-card product grid
-* Category filtering
-* Sorting (price, rating, alphabetical)
-* Responsive tile layout
-* Neon hover effects
-* Reusable `<product-card>` component
-* Static dataset modeled after a **PC hardware store**
+- Dynamic multi-card grid
+- Category filtering
+- Sorting (price, rating, alphabetical)
+- Responsive tile layout
+- Futuristic hover animations
+- Reusable `<product-card>` component
+- Static PC hardware dataset
 
 ---
 
 ### 🔍 **Product Detail Page**
 
-* Large product hero image
-* Discount badge + rating badge
-* Highlighted neon prices
-* Product category chip
-* Add-to-cart button + quick navigation
+- Large product hero section
+- Discount + rating markers
+- Neon price highlight
+- Category chips
+- Add-to-cart button
 
 ---
 
 ### 🛍️ **Cart System**
 
-* Full cart management (add, update, remove)
-* Neon-styled item cards
-* Quantity selection
-* Sticky checkout bar
-* Real product information reflected immediately
+- Add / Update / Remove items
+- Quantity picker
+- Beautiful glass item cards
+- Sticky checkout summary bar
+- Instant reactive updates
 
 ---
 
 ### 📦 **Checkout Flow**
 
-* Glass-styled address section
-* Payment method (Credit, PayPal, Crypto)
-* Delivery method (Standard / Express)
-* Order summary block
-* Unified UI with auth + catalog
+- Address form fields
+- Payment selection (Credit, PayPal, Crypto)
+- Delivery options (Standard / Express)
+- Order Summary component
+- Fully responsive neon design
+
+---
+
+## 📜 **NEW — Past Orders (Order History)**
+
+- Dedicated **Past Orders page**
+- Displays:
+  - Order number
+  - Order date
+  - Order total
+  - Number of items
+  - Status badge (Delivered / Shipped / Processing)
+
+- Uses **static mock data** for UI demonstration
+- Clean list layout matching the cart + checkout glass style
+- Works with the language switcher
+
+---
+
+## 🌐 **NEW — Multi-Language Support (EN / DE)**
+
+QuantumCart now includes a lightweight i18n system:
+
+### ⭐ Features:
+
+- Language selector added to the navbar
+- Current languages:
+  - 🇬🇧 English
+  - 🇩🇪 German
+
+- UI text automatically updates everywhere:
+  - Navbar
+  - Product list
+  - Past orders
+  - Buttons + labels
+  - Status text ("Delivered", "Shipped", etc.)
+
+- Translations stored inside a centralized `TranslationService`
+- Backend text (e.g., product descriptions) supports bilingual fields
+  Example: `description` + `descriptionDe`
+
+Example usage:
+
+```ts
+t('products'); // returns EN or DE string
+translateStatus(order.status);
+```
 
 ---
 
 ## 📱 Responsive Design
 
-* Mobile-first
-* Fully responsive product list
-* Beautifully stacked checkout layout
-* Adaptive image scaling
-* Perfectly centered content
+- Fully mobile-first
+- Smooth responsive scaling
+- Column-collapse on mobile
+- Neon glow scaling for smaller screens
 
 ---
 
@@ -82,8 +128,11 @@ Designed with clean architecture, modular features, and a premium shopping exper
 ```
 src/app/
 ├── core/
-│   └── components/
-│       └── splash-screen/
+│   ├── components/
+│   │   ├── splash-screen/
+│   │   └── app-layout/
+│   └── translation/
+│       └── translation.service.ts
 │
 ├── features/
 │   ├── auth/
@@ -103,22 +152,23 @@ src/app/
 │   │   └── ui/
 │   │       ├── cart-page/
 │   │       └── checkout-page/
+│   │
+│   └── orders/
+│       ├── domain/
+│       └── ui/
+│           └── past-orders/
 │
 ├── app.routes.ts
 └── app.config.ts
 ```
 
-This separation keeps **data, domain, and UI** clean and scalable.
+Now includes `orders/` feature module + global translation service.
 
 ---
 
 ## 🔗 API JSON Examples
 
-These examples show what the backend should return or accept.
-
----
-
-### 🧑‍💻 **User Response Example**
+### 🧑‍💻 User Response Example
 
 ```json
 {
@@ -132,34 +182,28 @@ These examples show what the backend should return or accept.
 
 ---
 
-### 🛒 **Product List Response Example**
+### 🛒 Product List Response Example
 
 ```json
 [
   {
-    "id": 7,
-    "name": "AeroCool Quantum Case",
-    "category": "PC Cases",
-    "price": 129.99,
-    "rating": 4.7,
-    "description": "A premium tempered-glass mid-tower case with optimized airflow, RGB panels, and modular cooling support.",
+    "id": 1,
+    "name": "QuantumBook X15 Pro",
+    "category": "Laptops",
+    "categoryDe": "Laptops",
+    "price": 1499.99,
+    "oldPrice": 1799.99,
+    "rating": 4.8,
+    "description": "The QuantumBook X15 Pro is built for creators, engineers and gamers who demand extreme performance. Featuring a 15.6” QLED display with 165Hz refresh rate, a quantum-accelerated processing core, and ultra-silent cooling. Perfect for 3D design, AI development, and high-end gaming, all wrapped in a sleek aluminum chassis.",
+    "descriptionDe": "Das QuantumBook X15 Pro wurde für Kreative, Ingenieure und Gamer entwickelt, die extreme Leistung benötigen. Ausgestattet mit einem 15,6\"-QLED-Display mit 165Hz, einem quantenbeschleunigten Rechenkern und einem ultra-leisen Kühlsystem. Perfekt für 3D-Design, KI-Entwicklung und High-End-Gaming – verpackt in einem eleganten Aluminiumgehäuse.",
     "imageUrl": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1200&q=80"
-  },
-  {
-    "id": 12,
-    "name": "RTX 4080 SUPER",
-    "category": "Graphics Cards",
-    "price": 1199.00,
-    "rating": 4.9,
-    "description": "Ultra-fast Ada Lovelace architecture, DLSS 3 support, and next-gen ray tracing.",
-    "imageUrl": "https://images.unsplash.com/photo-1610465299996-30f2b3c79805?w=1200&q=80"
   }
 ]
 ```
 
 ---
 
-### 📦 **Order History Example**
+### 📦 Order History Example
 
 ```json
 [
@@ -176,14 +220,7 @@ These examples show what the backend should return or accept.
         "name": "AeroCool Quantum Case",
         "price": 129.99,
         "quantity": 1,
-        "imageUrl": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1200&q=80"
-      },
-      {
-        "productId": 12,
-        "name": "RTX 4080 SUPER",
-        "price": 1199.00,
-        "quantity": 1,
-        "imageUrl": "https://images.unsplash.com/photo-1610465299996-30f2b3c79805?w=1200&q=80"
+        "imageUrl": "..."
       }
     ],
     "shippingAddress": {
@@ -201,13 +238,11 @@ These examples show what the backend should return or accept.
 
 ## 🛠 Development
 
-Start server:
-
 ```bash
 ng serve
 ```
 
-Visit:
+Run at:
 
 ```
 http://localhost:4200/

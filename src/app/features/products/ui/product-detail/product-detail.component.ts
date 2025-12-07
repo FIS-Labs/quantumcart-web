@@ -1,31 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { PRODUCTS } from '../../data/product.data';
+import { TranslationService } from '../../../../core/services/translation/translation.service';
 import { Product } from '../../domain/product.model';
-import { CartService } from '../../../../core/services/cart.service';
+import { ProductFacade } from '../../domain/product.facade';
+import { CartFacade } from '../../../cart/domain/cart.facade';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss']
+  styleUrls: ['./product-detail.component.scss'],
 })
-export class ProductDetailComponent {
+export class ProductDetailComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private facade = inject(ProductFacade);
+  private cartFacade = inject(CartFacade);
+  translationService = inject(TranslationService);
+
   product!: Product;
 
-  constructor(
-    private route: ActivatedRoute,
-    private cart: CartService
-  ) {
+  ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.product = PRODUCTS.find(p => p.id === id)!;
+
+    this.facade.getProductById(id).subscribe((product) => {
+      if (!product) {
+        console.error('Product not found');
+        return;
+      }
+      this.product = product;
+    });
   }
 
   addToCart() {
-    console.log("ProductDetail using CartService:", this.cart.id);
-    this.cart.addItem(this.product);
-    console.log("Cart AFTER add:", this.cart.getCart());
+    this.cartFacade.addProduct(this.product);
   }
 }

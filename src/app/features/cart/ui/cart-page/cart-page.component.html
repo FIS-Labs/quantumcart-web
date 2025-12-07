@@ -1,61 +1,50 @@
 <div class="cart-container">
-
-  <h1 class="title">Your Cart</h1>
-
   <div *ngIf="items.length === 0" class="empty">
-    Your cart is empty.
+    {{ translationService.t('emptyCart') }}
   </div>
 
   <div class="cart-items" *ngIf="items.length > 0">
-
     <div class="cart-item" *ngFor="let item of items">
-
       <!-- IMAGE -->
-      <img class="thumb" [src]="item.product.imageUrl" />
+      <img class="thumb" [src]="item.imageUrl" />
 
-      <!-- DETAILS SECTION -->
+      <!-- DETAILS -->
       <div class="details">
-        <h3>{{ item.product.name }}</h3>
+        <h3>{{ item.name }}</h3>
 
         <div class="meta">
-          <span class="chip">{{ item.product.category }}</span>
-          <span class="rating">⭐ {{ item.product.rating }}</span>
+          <span class="chip">
+            {{ translationService.currentLang === 'en' ? item.category : item.categoryDe }}
+          </span>
         </div>
 
-        <p class="desc">
-          {{ item.product.description }}
-        </p>
-
         <div class="price-row">
-          <span class="price">€{{ item.product.price | number:'1.2-2' }}</span>
+          <span class="price">€{{ item.price | number: '1.2-2' }}</span>
         </div>
       </div>
 
       <!-- ACTIONS -->
       <div class="actions">
+        <input
+          type="number"
+          min="1"
+          [value]="item.quantity"
+          (change)="updateQuantity(item.productId, $event.target.valueAsNumber)"
+        />
 
-        <input type="number"
-               min="1"
-               [value]="item.quantity"
-               (change)="updateQuantity(item.product.id, $event.target.valueAsNumber)" />
-
-        <button class="remove" (click)="remove(item.product.id)">
-          Remove ✖
+        <button class="remove" (click)="remove(item.productId)">
+          {{ translationService.t('remove') }} ✖
         </button>
-
       </div>
-
     </div>
-
   </div>
 
-  <!-- FIXED BOTTOM BAR -->
+  <!-- CHECKOUT BAR -->
   <div class="checkout-bar" *ngIf="items.length > 0">
-    <div class="total">Total: €{{ total | number:'1.2-2' }}</div>
+    <div class="total">{{ translationService.t('total') }}: €{{ total | number: '1.2-2' }}</div>
 
-    <button class="btn-primary" routerLink="/checkout">
-      Proceed to Checkout
+    <button class="btn-primary" routerLink="/cart/checkout">
+      {{ translationService.t('proceedToCheckout') }}
     </button>
   </div>
-
 </div>

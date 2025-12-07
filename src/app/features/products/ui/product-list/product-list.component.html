@@ -1,32 +1,42 @@
 <div class="product-list-container">
-
   <!-- FILTER + SORT BAR -->
   <div class="filter-bar">
+    <!-- CATEGORY FILTER -->
     <mat-form-field appearance="outline" class="filter-field">
-      <mat-label>Category</mat-label>
+      <mat-label>{{ translationService.t('category') }}</mat-label>
+
       <mat-select [(ngModel)]="selectedCategory" (selectionChange)="applyFilters()">
-        <mat-option value="all">All</mat-option>
-        <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+        <mat-option value="all">{{ translationService.t('all') }}</mat-option>
+
+        <mat-option *ngFor="let cat of categories" [value]="cat">
+          {{ cat }}
+        </mat-option>
       </mat-select>
     </mat-form-field>
 
+    <!-- SORT FILTER -->
     <mat-form-field appearance="outline" class="filter-field">
-      <mat-label>Sort By</mat-label>
+      <mat-label>{{ translationService.t('sortBy') }}</mat-label>
       <mat-select [(ngModel)]="sortOption" (selectionChange)="applySorting()">
-        <mat-option value="priceAsc">Price: Low → High</mat-option>
-        <mat-option value="priceDesc">Price: High → Low</mat-option>
-        <mat-option value="ratingDesc">Rating: High → Low</mat-option>
-        <mat-option value="nameAsc">Name: A → Z</mat-option>
+        <mat-option value="priceAsc">{{ translationService.t('priceLowHigh') }}</mat-option>
+        <mat-option value="priceDesc">{{ translationService.t('priceHighLow') }}</mat-option>
+        <mat-option value="ratingDesc">{{ translationService.t('ratingHighLow') }}</mat-option>
+        <mat-option value="nameAsc">{{ translationService.t('nameAZ') }}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
 
   <!-- PRODUCT GRID -->
   <div class="product-grid">
-    <product-card
-      *ngFor="let product of displayedProducts"
-      [product]="product">
-    </product-card>
+    <product-card *ngFor="let product of displayedProducts" [product]="product"> </product-card>
   </div>
 
+  <!-- PAGINATION -->
+  <div class="pagination-bar" *ngIf="total > pageSize">
+    <button class="pg-btn" (click)="previousPage()" [disabled]="page === 1">⬅</button>
+
+    <span class="pg-label"> {{ page }} / {{ totalPages }} </span>
+
+    <button class="pg-btn" (click)="nextPage()" [disabled]="page === totalPages">➡</button>
+  </div>
 </div>

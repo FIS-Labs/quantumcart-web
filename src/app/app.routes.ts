@@ -1,30 +1,34 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-    {
-        path: '',
-        loadChildren: () =>
-            import('./core/components/splash/splash.routes').then(m => m.SPLASH_ROUTES)
-    },
-    {
-        path: 'auth',
-        loadChildren: () => import('./features/auth/auth.routes').then(m => m.AUTH_ROUTES)
-    },
-    {
+  {
+    path: '',
+    loadComponent: () =>
+      import('./features/splash/ui/splash.component').then((m) => m.SplashScreenComponent),
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES),
+  },
+  {
+    path: '',
+    loadComponent: () =>
+      import('./core/components/app-layout/app-layout.component').then((m) => m.AppLayoutComponent),
+    children: [
+      {
         path: 'products',
-        loadChildren: () => import('./features/products/products.routes').then(m => m.PRODUCTS_ROUTES)
-    },
-    {
-        path: 'cart',
         loadChildren: () =>
-            import('./features/cart/cart.routes').then(m => m.CART_ROUTES)
-    },
-    {
-        path: 'checkout',
-        redirectTo: 'cart/checkout'
-    },
-    {
-        path: '**',
-        redirectTo: ''
-    }
+          import('./features/products/products.routes').then((m) => m.PRODUCTS_ROUTES),
+      },
+      {
+        path: 'cart',
+        loadChildren: () => import('./features/cart/cart.routes').then((m) => m.CART_ROUTES),
+      },
+      {
+        path: 'orders',
+        loadChildren: () => import('./features/orders/orders.routes').then((m) => m.ORDERS_ROUTES),
+      },
+    ],
+  },
+  { path: '**', redirectTo: '' },
 ];

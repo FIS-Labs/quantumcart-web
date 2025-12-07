@@ -10,8 +10,8 @@
 .detail-card {
   max-width: 460px;
   width: 100%;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(18px);
   border-radius: 22px;
   padding: 2rem;
@@ -50,7 +50,7 @@
     right: 12px;
     background: rgba(0, 0, 0, 0.55);
     color: #ffd700;
-    border: 1px solid rgba(255,255,255,0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(4px);
   }
 
@@ -101,8 +101,8 @@
   padding: 0.4rem 1rem;
   border-radius: 12px;
   font-size: 0.85rem;
-  background: rgba(0,255,255,0.12);
-  border: 1px solid rgba(0,255,255,0.3);
+  background: rgba(0, 255, 255, 0.12);
+  border: 1px solid rgba(0, 255, 255, 0.3);
 }
 
 /* DESCRIPTION */
@@ -151,16 +151,16 @@
   padding: 0.9rem;
   border-radius: 12px;
   font-weight: 600;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   color: white;
-  border: 1px solid rgba(0,255,255,0.4);
+  border: 1px solid rgba(0, 255, 255, 0.4);
 
   transition: 0.25s ease;
 
   &:hover {
     transform: translateY(-3px);
     box-shadow:
-      0 8px 18px rgba(0,255,255,0.25),
-      0 0 10px rgba(138,43,226,0.25);
+      0 8px 18px rgba(0, 255, 255, 0.25),
+      0 0 10px rgba(138, 43, 226, 0.25);
   }
 }

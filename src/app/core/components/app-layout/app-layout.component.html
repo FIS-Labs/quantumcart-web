@@ -1,0 +1,43 @@
+<nav class="navbar glass">
+  <div class="navbar-inner">
+    <!-- LEFT SECTION -->
+    <div class="nav-left">
+      <img src="assets/logo.png" class="logo" />
+
+      <a routerLink="/products" routerLinkActive="active">
+        {{ translationService.t('products') }}
+      </a>
+
+      <a routerLink="/orders" routerLinkActive="active">
+        {{ translationService.t('orders') }}
+      </a>
+
+      <a routerLink="/profile" routerLinkActive="active">
+        {{ translationService.t('profile') }}
+      </a>
+    </div>
+
+    <!-- RIGHT SECTION -->
+    <div class="nav-right">
+      <!-- Cart -->
+      <a routerLink="/cart" class="icon-btn" routerLinkActive="active">🛒</a>
+
+      <!-- Language Switch -->
+      <select class="lang-switch" [ngModel]="lang" (ngModelChange)="changeLang($event)">
+        <option value="en">🇬🇧 EN</option>
+        <option value="de">🇩🇪 DE</option>
+      </select>
+
+      <!-- LOGOUT BUTTON -->
+      <button class="logout-btn" (click)="logout()">
+        {{ translationService.t('logout') }}
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="content-wrapper">
+  <div class="content-card glass">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,33 +1,37 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CartService } from '../../../../core/services/cart.service';
 import { RouterModule } from '@angular/router';
+import { TranslationService } from '../../../../core/services/translation/translation.service';
+import { CartFacade } from '../../domain/cart.facade';
+import { inject } from '@angular/core';
 
 @Component({
   selector: 'app-cart-page',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './cart-page.component.html',
-  styleUrls: ['./cart-page.component.scss']
+  styleUrls: ['./cart-page.component.scss'],
 })
 export class CartPageComponent {
-  constructor(private cart: CartService) {}
+  private cartFacade = inject(CartFacade);
+  translationService = inject(TranslationService);
 
-  get items() {
-    console.log("CartPage using CartService:", this.cart.id);
-    console.log("Cart when rendering cart page:", this.cart.getCart());
-    return this.cart.getCart();
+  cart$ = this.cartFacade.cart$;
+  items: any[] = [];
+  total = 0;
+
+  ngOnInit() {
+    this.cart$.subscribe((cart) => {
+      this.items = cart.items;
+      this.total = cart.total;
+    });
   }
 
   updateQuantity(id: number, qty: number) {
-    this.cart.updateQuantity(id, qty);
+    this.cartFacade.updateQuantity(id, qty);
   }
 
   remove(id: number) {
-    this.cart.removeItem(id);
-  }
-
-  get total() {
-    return this.cart.getTotal();
+    this.cartFacade.remove(id);
   }
 }
