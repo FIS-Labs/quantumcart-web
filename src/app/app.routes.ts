@@ -28,6 +28,11 @@ export const routes: Routes = [
         path: 'orders',
         loadChildren: () => import('./features/orders/orders.routes').then((m) => m.ORDERS_ROUTES),
       },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./features/profile/ui/profile.component').then((m) => m.ProfilePageComponent),
+      },
     ],
   },
   { path: '**', redirectTo: '' },

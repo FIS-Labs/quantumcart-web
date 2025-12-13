@@ -17,7 +17,6 @@ export class OrderFacade {
   private cart = inject(CartFacade);
   private repo = inject(OrderRepository);
 
-  /** Create an order from current cart */
   placeOrder(
     shipping: ShippingForm,
     paymentMethod: string,
@@ -32,7 +31,6 @@ export class OrderFacade {
       paymentMethod,
       deliveryMethod,
 
-      // If backend provides these fields, REMOVE them.
       status: 'Processing',
       statusDe: 'Verarbeitung',
 
@@ -61,7 +59,6 @@ export class OrderFacade {
     );
   }
 
-  /** Get all past orders */
   getOrders(): Observable<Order[]> {
     return this.repo.getAll();
   }

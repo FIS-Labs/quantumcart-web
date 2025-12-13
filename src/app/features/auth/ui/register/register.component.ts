@@ -55,7 +55,15 @@ export class RegisterComponent {
       })
       .subscribe({
         next: () => this.router.navigate(['/auth/login']),
-        error: (err) => alert(err.message),
+        error: (err) => {
+          const errorKey = this.mapAuthError(err.message);
+          alert(this.translationService.t(errorKey));
+        },
       });
+  }
+
+  private mapAuthError(message: string): 'userAlreadyExists' | 'registrationError' {
+    if (message.includes('already exists')) return 'userAlreadyExists';
+    return 'registrationError';
   }
 }

@@ -5,10 +5,8 @@
 
   <div class="cart-items" *ngIf="items.length > 0">
     <div class="cart-item" *ngFor="let item of items">
-      <!-- IMAGE -->
       <img class="thumb" [src]="item.imageUrl" />
 
-      <!-- DETAILS -->
       <div class="details">
         <h3>{{ item.name }}</h3>
 
@@ -23,7 +21,6 @@
         </div>
       </div>
 
-      <!-- ACTIONS -->
       <div class="actions">
         <input
           type="number"
@@ -39,7 +36,6 @@
     </div>
   </div>
 
-  <!-- CHECKOUT BAR -->
   <div class="checkout-bar" *ngIf="items.length > 0">
     <div class="total">{{ translationService.t('total') }}: €{{ total | number: '1.2-2' }}</div>
 

@@ -15,12 +15,10 @@ import { AuthFacade } from '../../../features/auth/domain/auth.facade';
   styleUrls: ['./app-layout.component.scss'],
 })
 export class AppLayoutComponent {
-  /** Injected services */
   translationService = inject(TranslationService);
   private authFacade = inject(AuthFacade);
   private router = inject(Router);
 
-  /** Local state */
   lang = 'en';
 
   ngOnInit() {
@@ -29,10 +27,5 @@ export class AppLayoutComponent {
 
   changeLang(lang: string) {
     this.translationService.switchLang(lang as 'en' | 'de');
-  }
-
-  logout() {
-    this.authFacade.logout();
-    this.router.navigate(['/auth/login']);
   }
 }

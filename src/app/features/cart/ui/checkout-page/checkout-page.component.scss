@@ -1,4 +1,3 @@
-/* MAIN WRAPPER — SAME WIDTH AS CART */
 .checkout-container {
   color: white;
   padding: 2rem;
@@ -10,14 +9,12 @@
   gap: 2rem;
 }
 
-/* FORM COLUMN */
 .form-column {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-/* GLASS CARD (SAME STYLE AS CART ITEMS) */
 .glass {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(0, 255, 255, 0.15);
@@ -30,14 +27,12 @@
     0 0 30px rgba(138, 43, 226, 0.08);
 }
 
-/* SECTION TITLE */
 .section-title {
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 1rem;
 }
 
-/* GRID INPUTS */
 .form-grid {
   display: grid;
   gap: 1rem;
@@ -59,7 +54,6 @@
   }
 }
 
-/* OPTION BUTTONS */
 .options {
   display: flex;
   gap: 1rem;
@@ -89,10 +83,9 @@
   }
 }
 
-/* SUMMARY WRAPPER — MATCH SAME WIDTH */
 .summary-wrapper {
   width: 100%;
-  max-width: 900px; /* ensures alignment with cards */
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -100,7 +93,6 @@
   padding: 1.6rem;
 }
 
-/* SUMMARY ITEMS */
 .summary-items {
   display: flex;
   flex-direction: column;
@@ -142,6 +134,20 @@
   opacity: 0.15;
 }
 
+.summary-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+}
+
 .summary-total {
   display: flex;
   justify-content: space-between;
@@ -154,7 +160,6 @@
   }
 }
 
-/* LOGIN-STYLE PRIMARY BUTTON */
 .btn-primary {
   width: 100%;
   padding: 0.9rem;

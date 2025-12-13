@@ -3,7 +3,6 @@
   color: white;
 }
 
-/* FILTER BAR */
 .filter-bar {
   display: flex;
   gap: 1.5rem;
@@ -18,14 +17,12 @@
   }
 }
 
-/* PRODUCT GRID */
 .product-grid {
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
-/* PAGINATION BAR */
 .pagination-bar {
   margin-top: 2.5rem;
   display: flex;
@@ -48,7 +45,6 @@
     0 0 30px rgba(138, 43, 226, 0.08);
 }
 
-/* PAGE LABEL */
 .pg-label {
   font-weight: 600;
   letter-spacing: 1px;
@@ -57,7 +53,6 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* PAGINATION BUTTONS */
 .pg-btn {
   padding: 0.55rem 1rem;
   font-size: 1.1rem;
@@ -88,7 +83,6 @@
   }
 }
 
-/* MOBILE */
 @media (max-width: 480px) {
   .pagination-bar {
     gap: 1rem;

@@ -40,7 +40,16 @@ export class LoginComponent {
       })
       .subscribe({
         next: () => this.router.navigate(['/products']),
-        error: (err) => alert(err.message),
+        error: (err) => {
+          const errorKey = this.mapAuthError(err.message);
+          alert(this.translationService.t(errorKey));
+        },
       });
+  }
+
+  private mapAuthError(message: string): 'userNotFound' | 'invalidPassword' | 'loginError' {
+    if (message.includes('not found')) return 'userNotFound';
+    if (message.includes('Invalid password')) return 'invalidPassword';
+    return 'loginError';
   }
 }

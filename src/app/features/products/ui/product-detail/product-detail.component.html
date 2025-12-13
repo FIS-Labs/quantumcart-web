@@ -1,6 +1,5 @@
 <div class="detail-wrapper" *ngIf="product">
   <div class="detail-card">
-    <!-- IMAGE -->
     <div class="image-wrapper">
       <img [src]="product.imageUrl" [alt]="product.name" />
 
@@ -11,26 +10,21 @@
       </span>
     </div>
 
-    <!-- TITLE -->
     <h1 class="title">{{ product.name }}</h1>
 
-    <!-- PRICE -->
     <div class="price-area">
       <span class="current">€{{ product.price | number: '1.2-2' }}</span>
       <span class="old" *ngIf="product.oldPrice">€{{ product.oldPrice }}</span>
     </div>
 
-    <!-- CATEGORY -->
     <span class="category-chip">
       {{ translationService.currentLang === 'en' ? product.category : product.categoryDe }}
     </span>
 
-    <!-- DESCRIPTION -->
     <p class="description">
       {{ translationService.currentLang === 'en' ? product.description : product.descriptionDe }}
     </p>
 
-    <!-- BUTTONS -->
     <div class="button-row">
       <button mat-raised-button class="btn-primary" (click)="addToCart()">
         {{ translationService.t('addToCart') }}

@@ -2,7 +2,10 @@
   <div class="image-wrapper">
     <img [src]="product.imageUrl" [alt]="product.name" />
 
-    <!-- DISCOUNT BADGE -->
+    <span class="availability-badge" [class.out-of-stock]="!product.inStock">
+      {{ product.inStock ? '✓ In Stock' : '✗ Out of Stock' }}
+    </span>
+
     <span class="discount" *ngIf="product.oldPrice">
       -{{ (1 - product.price / product.oldPrice) * 100 | number: '1.0-0' }}%
     </span>

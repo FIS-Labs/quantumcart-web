@@ -158,6 +158,21 @@
       font-size: 0.9rem;
     }
   }
+
+  .forgot-password-link {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #00ffff;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: 0.2s;
+    display: inline-block;
+
+    &:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+  }
 }
 
 .btn-primary {

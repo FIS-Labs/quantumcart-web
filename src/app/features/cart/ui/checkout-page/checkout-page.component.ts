@@ -14,24 +14,44 @@ import { OrderFacade } from '../../../orders/domain/order.facade';
   styleUrls: ['./checkout-page.component.scss'],
 })
 export class CheckoutPageComponent implements OnInit {
-  /** Injected services */
   private cartFacade = inject(CartFacade);
   private orderFacade = inject(OrderFacade);
   translationService = inject(TranslationService);
   private router = inject(Router);
 
-  /** Cart state */
   items: any[] = [];
   total = 0;
 
-  /** Address fields */
+  // Tax and delivery constants
+  readonly TAX_RATE = 0.19; // 19% VAT
+  readonly STANDARD_DELIVERY_COST = 4.99;
+  readonly EXPRESS_DELIVERY_COST = 12.99;
+
+  // Computed properties
+  get subtotal(): number {
+    return this.total;
+  }
+
+  get taxAmount(): number {
+    return this.subtotal * this.TAX_RATE;
+  }
+
+  get deliveryCost(): number {
+    return this.deliveryMethod === 'express'
+      ? this.EXPRESS_DELIVERY_COST
+      : this.STANDARD_DELIVERY_COST;
+  }
+
+  get grandTotal(): number {
+    return this.subtotal + this.taxAmount + this.deliveryCost;
+  }
+
   name = '';
   street = '';
   city = '';
   postal = '';
   country = '';
 
-  /** Payment + delivery */
   paymentMethod = 'credit';
   deliveryMethod = 'standard';
 
@@ -62,11 +82,11 @@ export class CheckoutPageComponent implements OnInit {
 
     this.orderFacade.placeOrder(shipping, this.paymentMethod, this.deliveryMethod).subscribe({
       next: (order) => {
-        alert(`Order #${order.id} placed successfully.`);
+        alert(`${this.translationService.t('orderPlacedSuccess')} #${order.id}`);
         this.router.navigate(['/orders']);
       },
       error: (err) => {
-        alert('Cannot place order: ' + err.message);
+        alert(`${this.translationService.t('cannotPlaceOrder')}: ${err.message}`);
       },
     });
   }
