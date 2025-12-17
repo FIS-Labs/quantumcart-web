@@ -6,6 +6,8 @@ export interface CartItem {
   imageUrl: string;
   category: string;
   categoryDe: string;
+  oldPrice?: number;
+  rating?: number;
 }
 
 export interface Cart {

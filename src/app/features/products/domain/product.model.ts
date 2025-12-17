@@ -10,6 +10,22 @@ export interface Product {
   descriptionDe: string;
   inStock: boolean;
   imageUrl: string;
+  brand: string;
+  reviewCount: number;
+  reviews?: Review[];
+  specs?: Record<string, string>;
+  specsDe?: Record<string, string>;
+  warranty?: string;
+  warrantyDe?: string;
+}
+
+export interface Review {
+  id: number;
+  user: string;
+  rating: number;
+  comment: string;
+  commentDe?: string;
+  date: string;
 }
 
 export interface PaginatedProducts {

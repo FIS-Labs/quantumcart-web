@@ -1,55 +1,46 @@
 <div class="orders-container">
-  <div *ngIf="orders.length === 0" class="empty">
+  @if (orders.length === 0) {
+  <div class="empty">
     {{ translationService.t('noPastOrders') }}
   </div>
+  }
 
-  <div class="order-list" *ngIf="orders.length > 0">
-    <details class="order-card" *ngFor="let order of orders">
+  @if (orders.length > 0) {
+  <div class="order-list">
+    @for (order of orders; track order) {
+    <details class="order-card">
       <summary class="order-summary">
-        <div class="row">
-          <span class="label">{{ translationService.t('order') }}</span>
+        <div class="summary-left">
           <span class="value id">#{{ order.id }}</span>
+          <span class="value date">{{ order.createdAt | date:'mediumDate':undefined:translationService.currentLang
+            }}</span>
         </div>
-
-        <div class="row">
-          <span class="label">{{ translationService.t('date') }}</span>
-          <span class="value">{{ order.createdAt | date: 'mediumDate' }}</span>
+        <div class="summary-center">
+          <span class="item-count">{{ order.items.length }} {{ translationService.t('items') }}</span>
         </div>
-
-        <div class="row">
-          <span class="label">{{ translationService.t('items') }}</span>
-          <span class="value">{{ order.items.length }}</span>
-        </div>
-
-        <div class="row">
-          <span class="label">{{ translationService.t('total') }}</span>
+        <div class="summary-right">
+          <div class="status" [class.delivered]="order.status === 'Delivered'"
+            [class.shipped]="order.status === 'Shipped'" [class.processing]="order.status === 'Processing'">
+            {{ getStatus(order) }}
+          </div>
           <span class="value price">€{{ order.total | number: '1.2-2' }}</span>
         </div>
-
-        <div
-          class="status"
-          [class.delivered]="order.status === 'Delivered'"
-          [class.shipped]="order.status === 'Shipped'"
-          [class.processing]="order.status === 'Processing'"
-        >
-          {{ getStatus(order) }}
-        </div>
-        <span class="expand-icon"></span>
+        <span class="expand-icon">▼</span>
       </summary>
-
       <div class="details-body">
         <h4>{{ translationService.t('items') }}</h4>
         <div class="item-list">
-          <div class="item" *ngFor="let item of order.items">
-            <img [src]="item.imageUrl" class="item-img" />
+          @for (item of order.items; track item) {
+          <div class="item">
+            <img [src]="item.imageUrl" class="item-img" [alt]="item.name" />
             <div class="item-info">
               <div class="item-name">{{ item.name }}</div>
               <div class="item-qty">x{{ item.quantity }}</div>
               <div class="item-price">€{{ item.price | number: '1.2-2' }}</div>
             </div>
           </div>
+          }
         </div>
-
         <h4>{{ translationService.t('shippingAddress') }}</h4>
         <div class="address-block">
           <div>{{ order.shippingAddress.name }}</div>
@@ -57,13 +48,13 @@
           <div>{{ order.shippingAddress.city }}, {{ order.shippingAddress.postalCode }}</div>
           <div>{{ order.shippingAddress.country }}</div>
         </div>
-
         <h4>{{ translationService.t('paymentMethod') }}</h4>
         <div class="value">{{ order.paymentMethod }}</div>
-
         <h4>{{ translationService.t('deliveryMethod') }}</h4>
         <div class="value">{{ order.deliveryMethod }}</div>
       </div>
     </details>
+    }
   </div>
+  }
 </div>

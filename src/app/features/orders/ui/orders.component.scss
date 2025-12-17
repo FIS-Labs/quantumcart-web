@@ -64,6 +64,16 @@ details[open] {
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
+
+  h4 {
+    color: #00ffff;
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+  }
 }
 
 .item-list {
@@ -97,69 +107,66 @@ details[open] {
   margin-bottom: 1rem;
 }
 
-.row {
+
+.summary-left {
   display: flex;
   flex-direction: column;
-
-  .label {
-    opacity: 0.6;
-    font-size: 0.8rem;
-  }
-
-  .value {
-    font-weight: 600;
-  }
-
-  .price {
-    color: #00ffff;
-  }
+  gap: 0.2rem;
 
   .id {
-    letter-spacing: 0.5px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  .date {
+    font-size: 0.85rem;
+    opacity: 0.6;
   }
 }
 
-.status {
-  padding: 0.4rem 1rem;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 0.85rem;
+.summary-center {
+  flex: 1;
+  text-align: center;
 
-  &.delivered {
-    background: rgba(0, 255, 0, 0.15);
-    border: 1px solid rgba(0, 255, 0, 0.35);
+  .item-count {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
   }
+}
 
-  &.shipped {
-    background: rgba(0, 128, 255, 0.15);
-    border: 1px solid rgba(0, 128, 255, 0.35);
-  }
+.summary-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 
-  &.processing {
-    background: rgba(255, 255, 0, 0.15);
-    border: 1px solid rgba(255, 255, 0, 0.35);
+  .price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #00ffff;
   }
 }
 
 .expand-icon {
-  width: 12px;
-  height: 12px;
-  border-right: 2px solid #00ffff;
-  border-bottom: 2px solid #00ffff;
-  transform: rotate(45deg);
-  transition: transform 0.25s ease;
-  margin-left: 1rem;
-  opacity: 0.8;
+  font-size: 0.8rem;
+  color: #00ffff;
+  transition: transform 0.3s;
 }
 
 details[open] .expand-icon {
-  transform: rotate(-135deg);
+  transform: rotate(180deg);
 }
 
-summary.order-summary {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  list-style: none;
-  gap: 1rem;
+@media (max-width: 600px) {
+  .summary-right {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+
+  .summary-center {
+    display: none;
+  }
 }

@@ -16,7 +16,7 @@ export class AuthRepositoryImpl implements AuthRepository {
   register(req: RegisterRequest): Observable<AuthUser> {
     try {
       return of(this.authService.registerUser(req));
-    } catch (err: any) {
+    } catch (err: unknown) {
       return throwError(() => err);
     }
   }
@@ -24,7 +24,7 @@ export class AuthRepositoryImpl implements AuthRepository {
   login(req: LoginRequest): Observable<AuthUser> {
     try {
       return of(this.authService.loginUser(req));
-    } catch (err: any) {
+    } catch (err: unknown) {
       return throwError(() => err);
     }
   }
@@ -44,7 +44,7 @@ export class AuthRepositoryImpl implements AuthRepository {
   deleteAccount(): Observable<boolean> {
     try {
       return of(this.authService.deleteAccount());
-    } catch (err: any) {
+    } catch (err: unknown) {
       return throwError(() => err);
     }
   }
@@ -52,7 +52,7 @@ export class AuthRepositoryImpl implements AuthRepository {
   updateProfile(req: UpdateProfileRequest): Observable<AuthUser> {
     try {
       return of(this.authService.updateUserProfile(req));
-    } catch (err: any) {
+    } catch (err: unknown) {
       return throwError(() => err);
     }
   }
@@ -61,7 +61,7 @@ export class AuthRepositoryImpl implements AuthRepository {
     try {
       this.authService.requestPasswordReset(email);
       return of(void 0);
-    } catch (err: any) {
+    } catch (err: unknown) {
       return throwError(() => err);
     }
   }
