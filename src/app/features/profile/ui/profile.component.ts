@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -15,20 +15,20 @@ import { AuthFacade } from '../../auth/domain/auth.facade';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfilePageComponent implements OnInit {
+  private authFacade = inject(AuthFacade);
+  router = inject(Router);
+  translationService = inject(TranslationService);
+
   user: AuthUser | null = null;
   editMode = false;
 
-  // Edit form fields
+
   editName = '';
   editEmail = '';
   editPhone = '';
   editAddress = '';
 
-  constructor(
-    private authFacade: AuthFacade,
-    public router: Router,
-    public translationService: TranslationService,
-  ) {}
+
 
   ngOnInit(): void {
     this.user = this.authFacade.currentUser();
@@ -44,7 +44,6 @@ export class ProfilePageComponent implements OnInit {
     this.editMode = !this.editMode;
 
     if (this.editMode) {
-      // Copy current values to edit fields
       this.editName = this.user.name;
       this.editEmail = this.user.email;
       this.editPhone = this.user.phone || '';

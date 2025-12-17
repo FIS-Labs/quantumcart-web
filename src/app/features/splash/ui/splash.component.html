@@ -1,3 +1,5 @@
-<div class="splash-container" *ngIf="showSplash" [style.opacity]="opacityChange">
-  <img src="assets/logo.png" class="quantum-logo" alt="QuantumCart Logo" />
-</div>
+@if (showSplash) {
+  <div class="splash-container" [style.opacity]="opacityChange">
+    <img src="assets/logo.png" class="quantum-logo" alt="QuantumCart Logo" />
+  </div>
+}

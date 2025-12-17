@@ -1,0 +1,41 @@
+<div class="stores-container">
+  <h1 class="page-title">{{ translationService.t('stores') }}</h1>
+
+  <div class="stores-grid">
+    @for (store of stores$ | async; track store) {
+    <div class="store-card glass">
+      <div class="store-image">
+        <img [src]="store.imageUrl" [alt]="store.name" />
+      </div>
+      <div class="card-header">
+        <h2>{{ store.name }}</h2>
+        <span class="city-badge">{{ store.city }}</span>
+      </div>
+      <div class="info-group">
+        <h4>📍 {{ translationService.t('address') }}</h4>
+        <p>{{ store.address }}, {{ store.postal }} {{ store.city }}</p>
+        <div class="map-embed">
+          <iframe width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+            [src]="getMapUrl(store.address, store.city)" title="Google Map of {{store.name}}">
+          </iframe>
+        </div>
+        <a [href]="'https://www.google.com/maps/search/?api=1&query=' + store.address + '+' + store.city"
+          target="_blank" class="map-link" [attr.aria-label]="'View ' + store.name + ' on Google Maps'"
+          [title]="'View on Map'">
+          🗺️ {{ translationService.t('viewOnMap') }}
+        </a>
+      </div>
+      <div class="info-group">
+        <h4>📞 {{ translationService.t('contact') }}</h4>
+        <p>{{ store.phone }}</p>
+        <p>{{ store.email }}</p>
+      </div>
+      <div class="info-group">
+        <h4>🕒 {{ translationService.t('openingHours') }}</h4>
+        <p>{{ translationService.currentLang === 'en' ? store.openingHours : (store.openingHoursDe ??
+          store.openingHours) }}</p>
+      </div>
+    </div>
+    }
+  </div>
+</div>

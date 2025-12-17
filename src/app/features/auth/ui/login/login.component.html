@@ -1,12 +1,14 @@
-<div class="lang-wrapper">
-  <select
-    class="lang-switch"
-    [ngModel]="translationService.currentLang"
-    (ngModelChange)="translationService.switchLang($event)"
-  >
-    <option value="en">🇬🇧 EN</option>
-    <option value="de">🇩🇪 DE</option>
-  </select>
+<div class="auth-header">
+  <a routerLink="/products" class="btn-guest-header">
+    👤 {{ translationService.t('continueAsGuest') }}
+  </a>
+  <div class="lang-wrapper">
+    <select class="lang-switch" [ngModel]="translationService.currentLang"
+      (ngModelChange)="translationService.switchLang($event)">
+      <option value="en">🇬🇧 EN</option>
+      <option value="de">🇩🇪 DE</option>
+    </select>
+  </div>
 </div>
 
 <div class="auth-container">
@@ -19,25 +21,15 @@
 
     <form (ngSubmit)="onSubmit()" class="form-grid">
       <div class="input-group">
-        <label>{{ translationService.t('email') }}</label>
-        <input
-          type="email"
-          [(ngModel)]="email"
-          name="email"
-          [placeholder]="translationService.t('email')"
-          required
-        />
+        <label for="login-email">{{ translationService.t('email') }}</label>
+        <input type="email" id="login-email" [(ngModel)]="email" name="email"
+          [placeholder]="translationService.t('email')" required />
       </div>
 
       <div class="input-group">
-        <label>{{ translationService.t('password') }}</label>
-        <input
-          type="password"
-          [(ngModel)]="password"
-          name="password"
-          [placeholder]="translationService.t('password')"
-          required
-        />
+        <label for="login-password">{{ translationService.t('password') }}</label>
+        <input type="password" id="login-password" [(ngModel)]="password" name="password"
+          [placeholder]="translationService.t('password')" required />
         <a routerLink="/auth/forgot-password" class="forgot-password-link">
           {{ translationService.t('forgotPassword') }}
         </a>

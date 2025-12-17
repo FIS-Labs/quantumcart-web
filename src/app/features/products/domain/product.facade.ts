@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, map, switchMap } from 'rxjs';
 import { ProductRepository } from '../domain/product.repository';
-import { PaginatedProducts, Product } from '../domain/product.model';
+import { Product } from '../domain/product.model';
 import { TranslationService } from '../../../core/services/translation/translation.service';
 
 @Injectable({ providedIn: 'root' })
@@ -14,6 +14,12 @@ export class ProductFacade {
 
   getPaged(page: number, size: number) {
     return this.repo.getAllPaged(page, size);
+  }
+
+  getAll() {
+    return this.repo.getAll().pipe(
+      map(products => products.map(p => this.mapTranslated(p)))
+    );
   }
 
   products$ = this.page$.pipe(

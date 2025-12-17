@@ -1,12 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
 import { AuthFacade } from '../../auth/domain/auth.facade';
 
 @Component({
   selector: 'app-splash',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './splash.component.html',
   styleUrls: ['./splash.component.scss'],
 })
@@ -24,8 +24,8 @@ export class SplashScreenComponent implements OnInit {
       setTimeout(() => {
         this.showSplash = false;
 
-        const isLogged = this.authFacade.isLoggedIn();
-        this.router.navigate([isLogged ? '/products' : '/auth/login']);
+
+        this.router.navigate(['/products']);
       }, 600);
     }, 1500);
   }

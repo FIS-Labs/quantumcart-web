@@ -346,6 +346,7 @@ components:
       bearerFormat: JWT
 
   schemas:
+  schemas:
     # ========================================
     # AUTH SCHEMAS
     # ========================================
@@ -372,14 +373,7 @@ components:
         name: { type: string }
         email: { type: string }
         phone: { type: string, nullable: true }
-        deliveryAddress:
-          type: object
-          nullable: true
-          properties:
-            street: { type: string }
-            city: { type: string }
-            postalCode: { type: string }
-            country: { type: string }
+        address: { type: string, nullable: true, description: "Full address string as per frontend" }
         createdAt: { type: string, format: date-time }
 
     UpdateProfileRequest:
@@ -388,13 +382,7 @@ components:
         name: { type: string }
         email: { type: string, format: email }
         phone: { type: string }
-        deliveryAddress:
-          type: object
-          properties:
-            street: { type: string }
-            city: { type: string }
-            postalCode: { type: string }
-            country: { type: string }
+        address: { type: string }
 
     AuthResponse:
       type: object
@@ -419,18 +407,23 @@ components:
         rating: { type: number }
         description: { type: string }
         descriptionDe: { type: string }
-        technicalDetails: { type: string, nullable: true }
-        technicalDetailsDe: { type: string, nullable: true }
+        inStock: { type: boolean }
+        imageUrl: { type: string }
+        brand: { type: string }
+        reviewCount: { type: integer }
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductReview'
+        specs:
+          type: object
+          additionalProperties: { type: string }
+          description: "Key-value map of specifications"
+        specsDe:
+          type: object
+          additionalProperties: { type: string }
         warranty: { type: string, nullable: true }
         warrantyDe: { type: string, nullable: true }
-        officialWebsite: { type: string, nullable: true }
-        imageUrl: { type: string }
-        availability:
-          type: string
-          enum: [in_stock, low_stock, out_of_stock]
-        availabilityDe:
-          type: string
-          enum: [auf_lager, niedriger_lagerbestand, ausverkauft]
 
     PaginatedProducts:
       type: object
@@ -451,12 +444,11 @@ components:
       type: object
       properties:
         id: { type: integer }
-        productId: { type: integer }
-        userId: { type: integer }
-        userName: { type: string }
-        rating: { type: integer, minimum: 1, maximum: 5 }
+        user: { type: string, description: "Frontend uses 'user' string (name) directly" }
+        rating: { type: number, minimum: 1, maximum: 5 }
         comment: { type: string }
-        createdAt: { type: string, format: date-time }
+        commentDe: { type: string, nullable: true }
+        date: { type: string }
 
     CreateReviewRequest:
       type: object
@@ -514,13 +506,10 @@ components:
       type: object
       properties:
         id: { type: integer }
-        subtotal: { type: number }
-        tax: { type: number }
-        deliveryCost: { type: number }
         total: { type: number }
-        createdAt: { type: string, format: date-time }
         paymentMethod: { type: string }
         deliveryMethod: { type: string }
+        createdAt: { type: string, format: date-time }
         status:
           type: string
           enum: [Processing, Shipped, Delivered]
@@ -539,7 +528,8 @@ components:
             city: { type: string }
             postalCode: { type: string }
             country: { type: string }
-        guestEmail: { type: string, format: email, nullable: true }
+        email: { type: string }
+        userId: { type: integer, nullable: true }
 
     # ========================================
     # STORE SCHEMAS
@@ -550,21 +540,12 @@ components:
       properties:
         id: { type: integer }
         name: { type: string }
-        address:
-          type: object
-          properties:
-            street: { type: string }
-            city: { type: string }
-            postalCode: { type: string }
-            country: { type: string }
-        hours: { type: string }
-        hoursDe: { type: string }
+        address: { type: string, description: "Frontend uses flat address string" }
+        city: { type: string }
+        postal: { type: string }
+        country: { type: string }
         phone: { type: string }
         email: { type: string }
-        manager: { type: string }
-        managerDe: { type: string }
-        notifications: { type: string, nullable: true }
-        notificationsDe: { type: string, nullable: true }
-        latitude: { type: number }
-        longitude: { type: number }
-        imageUrl: { type: string, nullable: true }
+        openingHours: { type: string }
+        openingHoursDe: { type: string, nullable: true }
+        imageUrl: { type: string }

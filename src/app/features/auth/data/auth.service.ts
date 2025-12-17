@@ -21,7 +21,7 @@ export class AuthService {
       createdAt: new Date().toISOString(),
     };
 
-    MOCK_USERS.push(newUser as any);
+    MOCK_USERS.push(newUser as unknown as typeof MOCK_USERS[0]);
     localStorage.setItem(this.CURRENT_KEY, JSON.stringify(newUser));
 
     return this.toAuthUser(newUser);
@@ -83,30 +83,31 @@ export class AuthService {
       throw new Error('User not found');
     }
 
-    // Update user in mock data
+
     MOCK_USERS[userIndex] = {
       ...MOCK_USERS[userIndex],
       name: data.name,
       email: data.email,
-      phone: data.phone as any,
-      address: data.address as any,
+      phone: data.phone || '',
+      address: data.address || '',
     };
 
-    // Update localStorage
+
     const updatedUser = MOCK_USERS[userIndex];
     localStorage.setItem(this.CURRENT_KEY, JSON.stringify(updatedUser));
 
     return this.toAuthUser(updatedUser);
   }
 
-  private toAuthUser(u: any): AuthUser {
+  private toAuthUser(u: unknown): AuthUser {
+    const user = u as AuthUser;
     return {
-      id: u.id,
-      name: u.name,
-      email: u.email,
-      phone: u.phone,
-      address: u.address,
-      createdAt: u.createdAt,
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      address: user.address,
+      createdAt: user.createdAt,
     };
   }
 
@@ -117,8 +118,6 @@ export class AuthService {
       throw new Error('User not found');
     }
 
-    // In mock mode, we just check if user exists
-    // In production, this would send an email
     return true;
   }
 }

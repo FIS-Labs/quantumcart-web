@@ -13,6 +13,21 @@
   justify-content: center;
 }
 
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 10px;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  z-index: 1000;
+  transition: top 0.3s;
+
+  &:focus {
+    top: 10px;
+  }
+}
+
 .navbar-inner {
   width: 95%;
   display: flex;
@@ -99,6 +114,28 @@
   }
 }
 
+.cart-btn {
+  position: relative;
+
+  .badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4f6d;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 2px 5px rgba(255, 79, 109, 0.5);
+  }
+}
+
 .lang-switch {
   padding: 0.35rem 0.6rem;
   border-radius: 8px;
@@ -119,5 +156,35 @@
 
   option {
     background: #0b0f19;
+  }
+}
+
+.nav-btn {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 500;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #00ffff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+  }
+
+  &.logout {
+    background: rgba(255, 60, 60, 0.15);
+    border-color: rgba(255, 60, 60, 0.3);
+    color: #ff9999;
+
+    &:hover {
+      background: rgba(255, 60, 60, 0.25);
+      box-shadow: 0 0 10px rgba(255, 60, 60, 0.2);
+    }
   }
 }

@@ -1,13 +1,36 @@
-.lang-wrapper {
-  position: fixed;
-  top: 1.2rem;
-  right: 1.2rem;
-  z-index: 9999;
+.auth-header {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
   display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 10;
 
-  @media (max-width: 480px) {
-    top: 0.8rem;
-    right: 0.8rem;
+  .btn-guest-header {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: 0.3s;
+    font-weight: 500;
+    white-space: nowrap;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: #00ffff;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    }
+  }
+
+
+  .lang-wrapper {
+    position: static;
+    top: auto;
+    right: auto;
   }
 }
 

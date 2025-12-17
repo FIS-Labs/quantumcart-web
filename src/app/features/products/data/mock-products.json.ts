@@ -1,6 +1,45 @@
 import { Product } from '../domain/product.model';
 
-export const PRODUCTS: Product[] = [
+const productDetailsDefaults = {
+  brand: "QuantumCompute",
+  reviewCount: 4,
+  reviews: [
+    {
+      id: 101,
+      user: "VerifiedUser",
+      rating: 5,
+      comment: "Excellent quality and performance! precise engineering.",
+      commentDe: "Hervorragende Qualität und Leistung! Präzise Technik.",
+      date: "2023-12-01"
+    },
+    {
+      id: 102,
+      user: "TechEnjoyer",
+      rating: 4,
+      comment: "Good value for money, but shipping took a while.",
+      commentDe: "Gutes Preis-Leistungs-Verhältnis, aber der Versand hat etwas gedauert.",
+      date: "2023-11-20"
+    }
+  ],
+  specs: {
+    "material": "Premium Composite",
+    "origin": "Designed in Berlin",
+    "weight": "1.2kg (approx)",
+    "dimensions": "30cm x 20cm x 5cm",
+    "inTheBox": "Device, Manual, Power Cable"
+  },
+  specsDe: {
+    "material": "Premium-Verbundwerkstoff",
+    "origin": "Designt in Berlin",
+    "weight": "1,2kg (ca.)",
+    "dimensions": "30cm x 20cm x 5cm",
+    "inTheBox": "Gerät, Handbuch, Stromkabel"
+  },
+  warranty: "2 Year Limited Warranty",
+  warrantyDe: "2 Jahre eingeschränkte Garantie"
+};
+
+const RAW_PRODUCTS: Partial<Product>[] = [
   {
     id: 1,
     name: 'QuantumBook X15 Pro',
@@ -15,6 +54,47 @@ export const PRODUCTS: Product[] = [
       "Ein kreativenorientiertes 15,6''-QLED-Notebook mit 165Hz, ultra-leiser Kühlung und einem quantenbeschleunigten Leistungskern – ideal für Design, Entwicklung und Gaming.",
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/laptop1/1200/800',
+    brand: 'QuantumCompute',
+    reviewCount: 128,
+    reviews: [
+      {
+        id: 1,
+        user: 'TechGuru99',
+        rating: 5,
+        comment: 'Absolute beast of a machine. The display is vibrant and the cooling is whisper quiet.',
+        commentDe: 'Ein absolutes Biest. Das Display ist leuchtend und die Kühlung flüsterleise.',
+        date: '2023-11-15',
+
+      },
+      {
+        id: 2,
+        user: 'DesignPro',
+        rating: 4,
+        comment: 'Great performance, but the battery life could be better under heavy load.',
+        commentDe: 'Tolle Leistung, aber die Akkulaufzeit könnte unter Last besser sein.',
+        date: '2023-10-22',
+
+      },
+    ],
+    specs: {
+      processor: 'Quantum Core i9-14900HX',
+      ram: '32GB DDR5 5600MHz',
+      storage: '1TB NVMe Gen4',
+      display: '15.6" QLED 165Hz',
+      graphics: 'NVIDIA RTX 4070 8GB',
+      os: 'Windows 11 Pro',
+    },
+    specsDe: {
+      processor: 'Quantum Core i9-14900HX',
+      ram: '32GB DDR5 5600MHz',
+      storage: '1TB NVMe Gen4',
+      display: '15.6" QLED 165Hz',
+      graphics: 'NVIDIA RTX 4070 8GB',
+      os: 'Windows 11 Pro',
+    },
+    warranty: '2 Years Global Warranty',
+    warrantyDe: '2 Jahre Weltweite Garantie',
+
   },
   {
     id: 2,
@@ -29,6 +109,7 @@ export const PRODUCTS: Product[] = [
       "Ein leichtes Leistungs-Notebook mit Aluminiumgehäuse, 13''-Retina-QLED-Display und ganztägiger Akkulaufzeit für maximale Mobilität.",
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/laptop2/1200/800',
+
   },
   {
     id: 3,
@@ -43,6 +124,7 @@ export const PRODUCTS: Product[] = [
       "Eine 17''-Workstation mit 240Hz-Display, dedizierter KI-Recheneinheit und Titan-Gehäuse – perfekt für Rendering und Simulation.",
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/laptop3/1200/800',
+
   },
   {
     id: 4,
@@ -57,6 +139,7 @@ export const PRODUCTS: Product[] = [
       "Ein schlankes 14''-Notebook mit farbtreuem HDR-Display und leistungsstarker GPU-Beschleunigung – ideal für Videoschnitt und 3D-Arbeiten.",
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/laptop4/1200/800',
+
   },
 
   {
@@ -72,6 +155,7 @@ export const PRODUCTS: Product[] = [
       'Eine High-End-GPU mit Next-Gen-Raytracing, KI-Rendering und Dreikammer-Kühlung – ideal für 8K-Gaming und Filmproduktion.',
     inStock: false,
     imageUrl: 'https://picsum.photos/seed/gpu1/1200/800',
+
   },
   {
     id: 6,
@@ -86,6 +170,19 @@ export const PRODUCTS: Product[] = [
       'Eine leistungsstarke GPU für 4K-Gaming, VR und Echtzeit-Grafik, bekannt für ihre hohe Energieeffizienz.',
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/gpu2/1200/800',
+    brand: 'NeonForce',
+    specs: {
+      "vram": "16GB GDDR6X",
+      "cores": "8704 CUDA",
+      "boostClock": "2.1 GHz",
+      "power": "320W TDP"
+    },
+    specsDe: {
+      "vram": "16GB GDDR6X",
+      "cores": "8704 CUDA",
+      "boostClock": "2.1 GHz",
+      "power": "320W TDP"
+    }
   },
   {
     id: 7,
@@ -100,6 +197,19 @@ export const PRODUCTS: Product[] = [
       'Eine preis-effiziente GPU mit exzellenter 1440p-Leistung und verbessertem Raytracing bei geringem Stromverbrauch.',
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/gpu3/1200/800',
+    brand: 'NeonForce',
+    specs: {
+      "vram": "12GB GDDR6",
+      "cores": "6144 CUDA",
+      "boostClock": "1.9 GHz",
+      "power": "220W TDP"
+    },
+    specsDe: {
+      "vram": "12GB GDDR6",
+      "cores": "6144 CUDA",
+      "boostClock": "1.9 GHz",
+      "power": "220W TDP"
+    }
   },
   {
     id: 8,
@@ -114,6 +224,7 @@ export const PRODUCTS: Product[] = [
       'Eine Workstation-GPU für KI-Training, VFX-Simulationen und massive parallele Rechenaufgaben.',
     inStock: false,
     imageUrl: 'https://picsum.photos/seed/gpu4/1200/800',
+    brand: 'CyberSystems',
   },
 
   {
@@ -130,6 +241,7 @@ export const PRODUCTS: Product[] = [
       "Ein 27''-4K-IPS-Display mit holografischer Tiefenprojektion und 165Hz, ideal für kreative und Gaming-Workflows.",
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/monitor1/1200/800',
+
   },
   {
     id: 10,
@@ -144,6 +256,7 @@ export const PRODUCTS: Product[] = [
       "Ein 34''-Curved-Display mit kinoreichen Farben, 165Hz und professioneller Kalibrierung.",
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/monitor2/1200/800',
+
   },
   {
     id: 11,
@@ -158,6 +271,7 @@ export const PRODUCTS: Product[] = [
       "Ein gestochen scharfes 32''-1440p-Display mit NanoPixel-Beleuchtung für lebendige Farben.",
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/monitor3/1200/800',
+
   },
   {
     id: 12,
@@ -172,6 +286,7 @@ export const PRODUCTS: Product[] = [
       'Ein MicroLED-Profi-Monitor mit extremem Kontrast und Farbtreue für druckgenaues Arbeiten.',
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/monitor4/1200/800',
+
   },
 
   {
@@ -187,6 +302,7 @@ export const PRODUCTS: Product[] = [
       'Eine schnelle optomechanische Tastatur mit hot-swappable Switches und RGB-Matrixbeleuchtung.',
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/peri1/1200/800',
+
   },
   {
     id: 14,
@@ -201,6 +317,7 @@ export const PRODUCTS: Product[] = [
     descriptionDe: 'Eine 26.000-DPI-Gaming-Maus mit adaptivem Tracking und zwei Makropanels.',
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/peri2/1200/800',
+
   },
   {
     id: 15,
@@ -215,6 +332,7 @@ export const PRODUCTS: Product[] = [
       'Ein kabelloses Headset mit Raumklang und 40-Stunden-Akku für Gaming oder Home-Office.',
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/peri3/1200/800',
+
   },
   {
     id: 16,
@@ -228,6 +346,7 @@ export const PRODUCTS: Product[] = [
       'Eine große Hybrid-Oberflächen-Mausmatte mit RGB-Kanten und rutschfester Unterseite.',
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/peri4/1200/800',
+
   },
   {
     id: 17,
@@ -240,6 +359,7 @@ export const PRODUCTS: Product[] = [
     descriptionDe: 'Ein Studio-USB-Mikrofon mit Geräuschunterdrückung und Echtzeit-Monitoring.',
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/peri5/1200/800',
+
   },
   {
     id: 18,
@@ -252,6 +372,7 @@ export const PRODUCTS: Product[] = [
     descriptionDe: 'Eine 4K-HDR-Webcam mit KI-Auto-Framing und verbesserter Low-Light-Performance.',
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/peri6/1200/800',
+
   },
 
   {
@@ -267,6 +388,7 @@ export const PRODUCTS: Product[] = [
       'Eine PCIe-5.0-NVMe-SSD mit 13.500MB/s Lesegeschwindigkeit für große Workloads und ultraschnelles Booten.',
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/storage1/1200/800',
+
   },
   {
     id: 20,
@@ -281,6 +403,7 @@ export const PRODUCTS: Product[] = [
       'Eine kompakte Hochgeschwindigkeits-SSD, ideal für mobiles Editing und Konsolenspeicher.',
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/storage2/1200/800',
+
   },
   {
     id: 21,
@@ -294,6 +417,7 @@ export const PRODUCTS: Product[] = [
       'Ein 360-mm-Wasserkühler mit holografischem Pumpendisplay und sehr leisen Lüftern.',
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/cooling1/1200/800',
+
   },
   {
     id: 22,
@@ -308,6 +432,7 @@ export const PRODUCTS: Product[] = [
       'Ein Hochleistungs-Luftkühler mit Dual-Tower-Heatpipes und reaktiven Lüfterkurven.',
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/cooling2/1200/800',
+
   },
   {
     id: 23,
@@ -322,6 +447,7 @@ export const PRODUCTS: Product[] = [
       'Ein ATX-Mid-Tower aus gehärtetem Glas mit optimiertem Airflow und modularem Speicherlayout.',
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/case1/1200/800',
+
   },
   {
     id: 24,
@@ -336,5 +462,21 @@ export const PRODUCTS: Product[] = [
       'Ein kompaktes ITX-Gehäuse mit RGB-Seitenteilen, flexibler Kühlung und versteckter Kabelführung.',
     inStock: true,
     imageUrl: 'https://picsum.photos/seed/case2/1200/800',
+
   },
 ];
+
+export const PRODUCTS: Product[] = RAW_PRODUCTS.map(p => {
+
+  const fullProduct = { ...productDetailsDefaults, ...p } as Product;
+
+
+  if (fullProduct.reviews && fullProduct.reviews.length > 0) {
+    const total = fullProduct.reviews.reduce((acc, r) => acc + r.rating, 0);
+    fullProduct.rating = Number((total / fullProduct.reviews.length).toFixed(1));
+  } else {
+    fullProduct.rating = 0;
+  }
+
+  return fullProduct;
+});

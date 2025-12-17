@@ -1,107 +1,91 @@
-<div class="profile-container" *ngIf="user as u; else notLogged">
+@if (user; as u) {
+<div class="profile-container">
   <div class="profile-card glass">
     <div class="avatar">
       {{ u.name.charAt(0) | uppercase }}
     </div>
-
-    <!-- View Mode -->
-    <div *ngIf="!editMode" class="view-mode">
+    @if (!editMode) {
+    <div class="view-mode">
       <h2 class="name">{{ u.name }}</h2>
       <p class="email">{{ u.email }}</p>
-
-      <div class="info-grid" *ngIf="u.phone || u.address">
-        <div class="info-item" *ngIf="u.phone">
+      @if (u.phone || u.address) {
+      <div class="info-grid">
+        @if (u.phone) {
+        <div class="info-item">
           <span class="label">{{ translationService.t('phone') }}:</span>
           <span class="value">{{ u.phone }}</span>
         </div>
-        <div class="info-item" *ngIf="u.address">
+        }
+        @if (u.address) {
+        <div class="info-item">
           <span class="label">{{ translationService.t('address') }}:</span>
           <span class="value">{{ u.address }}</span>
         </div>
+        }
       </div>
-
+      }
       <p class="created">
         {{ translationService.t('memberSince') }}:
         <span>{{ u.createdAt | date: 'mediumDate' }}</span>
       </p>
-
       <div class="actions">
         <button class="btn-secondary" (click)="toggleEditMode()">
           {{ translationService.t('editProfile') }}
         </button>
-
         <button class="btn-primary" (click)="logout()">
           {{ translationService.t('logout') }}
         </button>
-
         <button class="btn-danger" (click)="deleteAccount()">
           {{ translationService.t('deleteAccount') }}
         </button>
       </div>
     </div>
-
-    <!-- Edit Mode -->
-    <div *ngIf="editMode" class="edit-mode">
+    }
+    @if (editMode) {
+    <div class="edit-mode">
       <h2 class="edit-title">{{ translationService.t('editProfile') }}</h2>
-
       <div class="form-grid">
         <div class="form-group">
-          <label>{{ translationService.t('fullName') }}</label>
-          <input
-            type="text"
-            [(ngModel)]="editName"
-            [placeholder]="translationService.t('fullName')"
-            required
-          />
+          <label for="edit-name">{{ translationService.t('fullName') }}</label>
+          <input id="edit-name" type="text" [(ngModel)]="editName" [placeholder]="translationService.t('fullName')"
+            required />
         </div>
-
         <div class="form-group">
-          <label>{{ translationService.t('email') }}</label>
-          <input
-            type="email"
-            [(ngModel)]="editEmail"
-            [placeholder]="translationService.t('email')"
-            required
-          />
+          <label for="edit-email">{{ translationService.t('email') }}</label>
+          <input id="edit-email" type="email" [(ngModel)]="editEmail" [placeholder]="translationService.t('email')"
+            required />
         </div>
-
         <div class="form-group">
-          <label>{{ translationService.t('phone') }}</label>
-          <input type="tel" [(ngModel)]="editPhone" [placeholder]="translationService.t('phone')" />
+          <label for="edit-phone">{{ translationService.t('phone') }}</label>
+          <input id="edit-phone" type="tel" [(ngModel)]="editPhone" [placeholder]="translationService.t('phone')" />
         </div>
-
         <div class="form-group full-width">
-          <label>{{ translationService.t('address') }}</label>
-          <textarea
-            [(ngModel)]="editAddress"
-            [placeholder]="translationService.t('address')"
-            rows="3"
-          ></textarea>
+          <label for="edit-address">{{ translationService.t('address') }}</label>
+          <textarea id="edit-address" [(ngModel)]="editAddress" [placeholder]="translationService.t('address')"
+            rows="3"></textarea>
         </div>
       </div>
-
       <div class="edit-actions">
         <button class="btn-primary" (click)="saveProfile()">
           {{ translationService.t('saveChanges') }}
         </button>
-
         <button class="btn-secondary" (click)="cancelEdit()">
           {{ translationService.t('cancel') }}
         </button>
       </div>
     </div>
+    }
   </div>
 </div>
-
-<ng-template #notLogged>
-  <div class="profile-container">
-    <div class="profile-card glass">
-      <p class="info-text">
-        {{ translationService.t('notLoggedIn') }}
-      </p>
-      <button class="btn-primary" (click)="router.navigate(['/auth/login'])">
-        {{ translationService.t('signIn') }}
-      </button>
-    </div>
+} @else {
+<div class="profile-container">
+  <div class="profile-card glass">
+    <p class="info-text">
+      {{ translationService.t('notLoggedIn') }}
+    </p>
+    <button class="btn-primary" (click)="router.navigate(['/auth/login'])">
+      {{ translationService.t('signIn') }}
+    </button>
   </div>
-</ng-template>
+</div>
+}

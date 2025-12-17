@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TranslationService } from '../../../../core/services/translation/translation.service';
 import { CartFacade } from '../../domain/cart.facade';
-import { inject } from '@angular/core';
+import { inject, OnInit } from '@angular/core';
+
+import { CartItem } from '../../domain/cart.model';
 
 @Component({
   selector: 'app-cart-page',
@@ -12,12 +14,13 @@ import { inject } from '@angular/core';
   templateUrl: './cart-page.component.html',
   styleUrls: ['./cart-page.component.scss'],
 })
-export class CartPageComponent {
+export class CartPageComponent implements OnInit {
   private cartFacade = inject(CartFacade);
   translationService = inject(TranslationService);
+  private location = inject(Location);
 
   cart$ = this.cartFacade.cart$;
-  items: any[] = [];
+  items: CartItem[] = [];
   total = 0;
 
   ngOnInit() {
@@ -33,5 +36,9 @@ export class CartPageComponent {
 
   remove(id: number) {
     this.cartFacade.remove(id);
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
