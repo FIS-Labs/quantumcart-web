@@ -1,60 +1,105 @@
+@if (orders$ | async; as orders) {
 <div class="orders-container">
+  <header class="page-title-section">
+    <h1 class="page-title">{{ translationService.t('orderHistory') }}</h1>
+    <p class="page-subtitle">{{ orders.length }} {{ translationService.t('totalOrders') }}</p>
+  </header>
+
   @if (orders.length === 0) {
-  <div class="empty">
-    {{ translationService.t('noPastOrders') }}
+  <div class="empty-state glass">
+    <div class="icon">📦</div>
+    <p>{{ translationService.t('noPastOrders') }}</p>
+    <button class="btn-primary" (click)="router.navigate(['/products'])">
+      {{ translationService.t('startShopping') || 'Start Shopping' }}
+    </button>
   </div>
   }
 
-  @if (orders.length > 0) {
-  <div class="order-list">
-    @for (order of orders; track order) {
-    <details class="order-card">
-      <summary class="order-summary">
-        <div class="summary-left">
-          <span class="value id">#{{ order.id }}</span>
-          <span class="value date">{{ order.createdAt | date:'mediumDate':undefined:translationService.currentLang
-            }}</span>
-        </div>
-        <div class="summary-center">
-          <span class="item-count">{{ order.items.length }} {{ translationService.t('items') }}</span>
-        </div>
-        <div class="summary-right">
-          <div class="status" [class.delivered]="order.status === 'Delivered'"
-            [class.shipped]="order.status === 'Shipped'" [class.processing]="order.status === 'Processing'">
-            {{ getStatus(order) }}
+  <div class="order-grid">
+    @for (order of orders; track order.id) {
+    <details class="order-card glass">
+      <summary class="order-header">
+        <div class="header-main">
+          <div class="id-date">
+            <span class="order-id">#{{ order.id }}</span>
+            <span class="order-date">{{ order.createdAt | date:'MMM d, y, h:mm a' }}</span>
           </div>
-          <span class="value price">€{{ order.total | number: '1.2-2' }}</span>
+          <div class="status-badge" [attr.data-status]="(order.statusKey || order.status).toLowerCase()">
+            <span class="dot"></span>
+            {{ order.status }}
+          </div>
         </div>
-        <span class="expand-icon">▼</span>
+
+        <div class="header-meta">
+          <div class="item-summary text-secondary">
+            {{ order.items.length }} {{ translationService.t('items') }}
+          </div>
+          <div class="total-price">
+            €{{ order.total | number: '1.2-2' }}
+          </div>
+          <div class="expand-chevron">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path fill="currentColor" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+            </svg>
+          </div>
+        </div>
       </summary>
-      <div class="details-body">
-        <h4>{{ translationService.t('items') }}</h4>
-        <div class="item-list">
-          @for (item of order.items; track item) {
-          <div class="item">
-            <img [src]="item.imageUrl" class="item-img" [alt]="item.name" />
-            <div class="item-info">
-              <div class="item-name">{{ item.name }}</div>
-              <div class="item-qty">x{{ item.quantity }}</div>
-              <div class="item-price">€{{ item.price | number: '1.2-2' }}</div>
+
+      <div class="details-content">
+        <section class="items-section">
+          <h3>{{ translationService.t('items') }}</h3>
+          <div class="item-grid">
+            @for (item of order.items; track item.productId) {
+            <div class="order-item">
+              <div class="item-img-wrapper">
+                <img [src]="item.imageUrl" [alt]="item.name" />
+              </div>
+              <div class="item-details">
+                <span class="item-name">{{ item.name }}</span>
+                <span class="item-meta text-secondary">Qty: {{ item.quantity }} • €{{ item.price | number: '1.2-2'
+                  }}</span>
+              </div>
+              <div class="item-total">
+                €{{ (item.price * item.quantity) | number: '1.2-2' }}
+              </div>
+            </div>
+            }
+          </div>
+        </section>
+
+        <div class="info-footer">
+          <div class="footer-col">
+            <h3>{{ translationService.t('shippingAddress') }}</h3>
+            <div class="address-card">
+              <p><strong>{{ order.shippingAddress.name }}</strong></p>
+              <p>{{ order.shippingAddress.street }}</p>
+              <p>{{ order.shippingAddress.postalCode }} {{ order.shippingAddress.city }}</p>
+              <p>{{ order.shippingAddress.country }}</p>
+              @if (order.shippingAddress.additionalNotes) {
+              <div class="order-notes">
+                <small class="label">{{ translationService.t('notes') }}:</small>
+                <p class="notes-text">{{ order.shippingAddress.additionalNotes }}</p>
+              </div>
+              }
             </div>
           </div>
-          }
+          <div class="footer-col">
+            <h3>{{ translationService.t('orderSummary') || 'Summary' }}</h3>
+            <div class="summary-block">
+              <div class="row">
+                <span>{{ translationService.t('paymentMethod') }}</span>
+                <span>{{ order.paymentMethod }}</span>
+              </div>
+              <div class="row">
+                <span>{{ translationService.t('deliveryMethod') }}</span>
+                <span>{{ order.deliveryMethod }}</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <h4>{{ translationService.t('shippingAddress') }}</h4>
-        <div class="address-block">
-          <div>{{ order.shippingAddress.name }}</div>
-          <div>{{ order.shippingAddress.street }}</div>
-          <div>{{ order.shippingAddress.city }}, {{ order.shippingAddress.postalCode }}</div>
-          <div>{{ order.shippingAddress.country }}</div>
-        </div>
-        <h4>{{ translationService.t('paymentMethod') }}</h4>
-        <div class="value">{{ order.paymentMethod }}</div>
-        <h4>{{ translationService.t('deliveryMethod') }}</h4>
-        <div class="value">{{ order.deliveryMethod }}</div>
       </div>
     </details>
     }
   </div>
-  }
 </div>
+}

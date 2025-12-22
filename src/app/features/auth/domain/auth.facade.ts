@@ -1,10 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { AuthRepository } from './auth.repository';
 import { LoginRequest, RegisterRequest, UpdateProfileRequest } from './auth.model';
+import { CartFacade } from '../../cart/domain/cart.facade';
 
 @Injectable({ providedIn: 'root' })
 export class AuthFacade {
   private repo = inject(AuthRepository);
+  private cartFacade = inject(CartFacade);
+
+  currentUser$ = this.repo.currentUser$;
 
 
 
@@ -17,6 +21,7 @@ export class AuthFacade {
   }
 
   logout() {
+    this.cartFacade.clear();
     return this.repo.logout();
   }
 

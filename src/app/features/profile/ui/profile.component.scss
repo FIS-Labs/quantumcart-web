@@ -112,7 +112,6 @@
   margin-bottom: 1.5rem;
 }
 
-// Edit Mode Styles
 .edit-mode {
   width: 100%;
 }
@@ -238,7 +237,6 @@
   }
 }
 
-// Responsive
 @media (max-width: 600px) {
   .form-grid {
     grid-template-columns: 1fr;

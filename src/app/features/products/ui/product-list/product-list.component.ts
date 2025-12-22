@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 
@@ -24,6 +24,7 @@ export class ProductListComponent implements OnInit {
   translationService = inject(TranslationService);
   private facade = inject(ProductFacade);
   private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   displayedProducts: Product[] = [];
   rawProducts: Product[] = [];
@@ -46,10 +47,6 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.loadData();
-
-    this.translationService.lang$.subscribe(() => {
-      this.loadData();
-    });
   }
 
   loadData() {
@@ -58,6 +55,7 @@ export class ProductListComponent implements OnInit {
       this.populateCategories();
       this.populateBrands();
       this.applyFilters();
+      this.cdr.markForCheck();
     });
   }
 
@@ -91,6 +89,7 @@ export class ProductListComponent implements OnInit {
 
     this.page = 1;
     this.applySorting();
+    this.cdr.markForCheck();
   }
 
   applySorting() {

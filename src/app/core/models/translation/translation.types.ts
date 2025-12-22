@@ -121,4 +121,10 @@ export type TranslationKey =
   | 'or'
   | 'guestCheckout'
   | 'guestPrompt'
-  | 'reviews';
+  | 'reviews'
+  | 'orderHistory'
+  | 'totalOrders'
+  | 'startShopping'
+  | 'notes'
+  | 'street'
+  | 'additionalNotes';

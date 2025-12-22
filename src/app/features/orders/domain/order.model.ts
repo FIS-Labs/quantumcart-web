@@ -14,6 +14,7 @@ export interface Order {
   createdAt: string;
   status: string;
   statusDe: string;
+  statusKey?: string; // English status for CSS selectors
   items: OrderItem[];
   shippingAddress: {
     name: string;
@@ -21,6 +22,7 @@ export interface Order {
     city: string;
     postalCode: string;
     country: string;
+    additionalNotes?: string;
   };
   email: string;
   userId?: number;

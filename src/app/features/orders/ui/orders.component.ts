@@ -1,9 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { TranslationService } from '../../../core/services/translation/translation.service';
 import { OrderFacade } from '../domain/order.facade';
-import { Order } from '../domain/order.model';
 
 @Component({
   standalone: true,
@@ -15,18 +15,11 @@ import { Order } from '../domain/order.model';
 export class OrdersPageComponent implements OnInit {
   private orderFacade = inject(OrderFacade);
   translationService = inject(TranslationService);
+  router = inject(Router);
 
-  orders: Order[] = [];
+  orders$ = this.orderFacade.orders$;
 
   ngOnInit() {
-    this.orderFacade.getOrders().subscribe((orders) => {
-      this.orders = orders;
-    });
-  }
-
-  getStatus(order: Order): string {
-    return this.translationService.currentLang === 'en'
-      ? order.status
-      : (order.statusDe ?? order.status);
+    this.orderFacade.refreshOrders();
   }
 }

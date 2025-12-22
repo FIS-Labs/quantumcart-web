@@ -8,7 +8,7 @@
     <div class="view-mode">
       <h2 class="name">{{ u.name }}</h2>
       <p class="email">{{ u.email }}</p>
-      @if (u.phone || u.address) {
+      @if (u.phone || u.street || u.city || u.postalCode || u.country || u.additionalNotes) {
       <div class="info-grid">
         @if (u.phone) {
         <div class="info-item">
@@ -16,10 +16,20 @@
           <span class="value">{{ u.phone }}</span>
         </div>
         }
-        @if (u.address) {
-        <div class="info-item">
-          <span class="label">{{ translationService.t('address') }}:</span>
-          <span class="value">{{ u.address }}</span>
+        @if (u.street || u.city || u.postalCode || u.country) {
+        <div class="info-item full-width address-block">
+          <span class="label">{{ translationService.t('deliveryAddress') || 'Delivery Address' }}:</span>
+          <span class="value">
+            {{ u.street }}<br>
+            {{ u.postalCode }} {{ u.city }}<br>
+            {{ u.country }}
+          </span>
+        </div>
+        }
+        @if (u.additionalNotes) {
+        <div class="info-item full-width">
+          <span class="label">{{ translationService.t('notes') || 'Additional Notes' }}:</span>
+          <span class="value">{{ u.additionalNotes }}</span>
         </div>
         }
       </div>
@@ -59,10 +69,30 @@
           <label for="edit-phone">{{ translationService.t('phone') }}</label>
           <input id="edit-phone" type="tel" [(ngModel)]="editPhone" [placeholder]="translationService.t('phone')" />
         </div>
+        <div class="form-group">
+          <label for="edit-street">{{ translationService.t('street') || 'Street' }}</label>
+          <input id="edit-street" type="text" [(ngModel)]="editStreet"
+            [placeholder]="translationService.t('street') || 'Street'" />
+        </div>
+        <div class="form-group">
+          <label for="edit-city">{{ translationService.t('city') || 'City' }}</label>
+          <input id="edit-city" type="text" [(ngModel)]="editCity"
+            [placeholder]="translationService.t('city') || 'City'" />
+        </div>
+        <div class="form-group">
+          <label for="edit-postal">{{ translationService.t('postalCode') || 'Postal Code' }}</label>
+          <input id="edit-postal" type="text" [(ngModel)]="editPostalCode"
+            [placeholder]="translationService.t('postalCode') || 'Postal Code'" />
+        </div>
+        <div class="form-group">
+          <label for="edit-country">{{ translationService.t('country') || 'Country' }}</label>
+          <input id="edit-country" type="text" [(ngModel)]="editCountry"
+            [placeholder]="translationService.t('country') || 'Country'" />
+        </div>
         <div class="form-group full-width">
-          <label for="edit-address">{{ translationService.t('address') }}</label>
-          <textarea id="edit-address" [(ngModel)]="editAddress" [placeholder]="translationService.t('address')"
-            rows="3"></textarea>
+          <label for="edit-address">{{ translationService.t('additionalNotes') || 'Additional Notes' }}</label>
+          <textarea id="edit-address" [(ngModel)]="editAdditionalNotes"
+            [placeholder]="translationService.t('additionalNotes') || 'E.g. floor, gate code...'" rows="2"></textarea>
         </div>
       </div>
       <div class="edit-actions">

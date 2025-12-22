@@ -3,6 +3,9 @@ info:
   title: QuantumCart API - Complete
   version: 2.0.0
   description: Complete Backend API for QuantumCart e-commerce with all basic + advanced features (excluding accessibility).
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
 
 servers:
   - url: https://api.quantumcart.com
@@ -12,18 +15,26 @@ servers:
 
 tags:
   - name: Auth
+    description: Authentication and Authorization
   - name: Products
+    description: Product management and catalog
   - name: Orders
+    description: Order processing and history
   - name: User Profile
+    description: User account management
   - name: Stores
+    description: Physical store locations
   - name: Reviews
+    description: Product reviews and ratings
 
 paths:
 
   /auth/register:
     post:
+      operationId: registerUser
       tags: [Auth]
       summary: Register a new user
+      security: []
       requestBody:
         required: true
         content:
@@ -42,8 +53,10 @@ paths:
 
   /auth/login:
     post:
+      operationId: loginUser
       tags: [Auth]
       summary: Login and receive an access token
+      security: []
       requestBody:
         required: true
         content:
@@ -62,6 +75,7 @@ paths:
 
   /auth/logout:
     post:
+      operationId: logoutUser
       tags: [Auth]
       summary: Logout user
       security:
@@ -69,9 +83,12 @@ paths:
       responses:
         '200':
           description: Logged out successfully
+        '401':
+          description: Unauthorized
 
   /auth/me:
     get:
+      operationId: getCurrentUser
       tags: [User Profile]
       summary: Get currently authenticated user
       security:
@@ -83,8 +100,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthUser'
+        '401':
+          description: Unauthorized
 
     put:
+      operationId: updateUserProfile
       tags: [User Profile]
       summary: Update user profile
       security:
@@ -102,8 +122,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthUser'
+        '401':
+          description: Unauthorized
 
     delete:
+      operationId: deleteUserAccount
       tags: [User Profile]
       summary: Delete user account
       security:
@@ -111,11 +134,15 @@ paths:
       responses:
         '204':
           description: Account deleted
+        '401':
+          description: Unauthorized
 
   /auth/forgot-password:
     post:
+      operationId: forgotPassword
       tags: [Auth]
       summary: Request password reset email
+      security: []
       requestBody:
         required: true
         content:
@@ -133,10 +160,12 @@ paths:
         '404':
           description: Email not found
 
-  /products:
+  /api/products:
     get:
+      operationId: getProducts
       tags: [Products]
       summary: Get paginated products list
+      security: []
       parameters:
         - in: query
           name: page
@@ -165,11 +194,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedProducts'
+        '400':
+          description: Invalid query parameters
 
-  /products/{id}:
+  /api/products/{id}:
     get:
+      operationId: getProductById
       tags: [Products]
       summary: Get product by ID
+      security: []
       parameters:
         - name: id
           in: path
@@ -185,10 +218,12 @@ paths:
         '404':
           description: Not found
 
-  /products/{id}/reviews:
+  /api/products/{id}/reviews:
     get:
+      operationId: getProductReviews
       tags: [Reviews]
       summary: Get reviews for a product
+      security: []
       parameters:
         - name: id
           in: path
@@ -203,9 +238,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ProductReview'
+        '404':
+          description: Product not found
 
-  /orders:
+  /api/orders:
     get:
+      operationId: getOrders
       tags: [Orders]
       summary: Get all orders for logged-in user
       security:
@@ -219,8 +257,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Order'
+        '401':
+          description: Unauthorized
 
     post:
+      operationId: createOrder
       tags: [Orders]
       summary: Create order (auth optional for guest checkout)
       security:
@@ -239,11 +280,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Order'
+        '400':
+          description: Invalid request data
 
-  /stores:
+  /api/stores:
     get:
+      operationId: getStores
       tags: [Stores]
       summary: Get list of all stores
+      security: []
       responses:
         '200':
           description: List of stores
@@ -253,11 +298,17 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Store'
+        '400':
+          description: Bad request
+        '500':
+          description: Server error
 
-  /stores/{id}:
+  /api/stores/{id}:
     get:
+      operationId: getStoreById
       tags: [Stores]
       summary: Get store details
+      security: []
       parameters:
         - name: id
           in: path
@@ -270,6 +321,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Store'
+        '404':
+          description: Not found
 
 components:
   securitySchemes:
@@ -279,4 +332,274 @@ components:
       bearerFormat: JWT
 
   schemas:
-    # schemas unchanged
+    AuthUser:
+      type: object
+      required: [id, name, email, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        address:
+          type: string
+        street:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    RegisterRequest:
+      type: object
+      required: [name, email, password]
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+
+    UpdateProfileRequest:
+      type: object
+      required: [name, email]
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        address:
+          type: string
+        street:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+
+    AuthResponse:
+      type: object
+      required: [token, user]
+      properties:
+        token:
+          type: string
+        user:
+          $ref: '#/components/schemas/AuthUser'
+
+    Product:
+      type: object
+      required: [id, name, category, price, rating, inStock, imageUrl]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        category:
+          type: string
+        categoryDe:
+          type: string
+        price:
+          type: number
+        oldPrice:
+          type: number
+        rating:
+          type: number
+        description:
+          type: string
+        descriptionDe:
+          type: string
+        inStock:
+          type: boolean
+        imageUrl:
+          type: string
+        brand:
+          type: string
+        reviewCount:
+          type: integer
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductReview'
+        specs:
+          type: object
+          additionalProperties:
+            type: string
+        specsDe:
+          type: object
+          additionalProperties:
+            type: string
+        warranty:
+          type: string
+        warrantyDe:
+          type: string
+
+    ProductReview:
+      type: object
+      required: [id, user, rating, comment, date]
+      properties:
+        id:
+          type: integer
+        user:
+          type: string
+        rating:
+          type: number
+        comment:
+          type: string
+        commentDe:
+          type: string
+        date:
+          type: string
+          format: date
+
+    PaginatedProducts:
+      type: object
+      required: [items, total, page, pageSize]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        total:
+          type: integer
+        page:
+          type: integer
+        pageSize:
+          type: integer
+
+    Order:
+      type: object
+      required: [id, total, paymentMethod, deliveryMethod, createdAt, status, items, shippingAddress, email]
+      properties:
+        id:
+          type: integer
+        total:
+          type: number
+        paymentMethod:
+          type: string
+        deliveryMethod:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+        statusDe:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        shippingAddress:
+          type: object
+          required: [name, street, city, postalCode, country]
+          properties:
+            name:
+              type: string
+            street:
+              type: string
+            city:
+              type: string
+            postalCode:
+              type: string
+            country:
+              type: string
+        email:
+          type: string
+          format: email
+        userId:
+          type: integer
+
+    OrderItem:
+      type: object
+      required: [productId, name, price, quantity]
+      properties:
+        productId:
+          type: integer
+        name:
+          type: string
+        price:
+          type: number
+        quantity:
+          type: integer
+        imageUrl: { type: string }
+
+    CreateOrderRequest:
+      type: object
+      required: [shippingAddress, paymentMethod, deliveryMethod, items]
+      properties:
+        shippingAddress:
+          type: object
+          required: [name, street, city, postalCode, country]
+          properties:
+            name:
+              type: string
+            street:
+              type: string
+            city:
+              type: string
+            postalCode:
+              type: string
+            country:
+              type: string
+        paymentMethod:
+          type: string
+        deliveryMethod:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+
+    Store:
+      type: object
+      required: [id, name, address, city, postal, country, phone, email, openingHours, imageUrl]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        postal:
+          type: string
+        country:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+          format: email
+        openingHours:
+          type: string
+        openingHoursDe:
+          type: string
+        imageUrl:
+          type: string

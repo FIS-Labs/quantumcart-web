@@ -1,9 +1,10 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, combineLatest, map, BehaviorSubject, switchMap, startWith } from 'rxjs';
 import { OrderRepository } from '../domain/order.repository';
-import { Order } from '../domain/order.model';
+import { Order } from './order.model';
 import { CartFacade } from '../../cart/domain/cart.facade';
 import { AuthFacade } from '../../auth/domain/auth.facade';
+import { TranslationService } from '../../../core/services/translation/translation.service';
 
 interface ShippingForm {
   name: string;
@@ -12,6 +13,7 @@ interface ShippingForm {
   city: string;
   postal: string;
   country: string;
+  additionalNotes?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -19,6 +21,22 @@ export class OrderFacade {
   private cart = inject(CartFacade);
   private repo = inject(OrderRepository);
   private auth = inject(AuthFacade);
+  private translationService = inject(TranslationService);
+
+  private refreshSubject = new BehaviorSubject<void>(undefined);
+
+  orders$ = combineLatest([
+    this.refreshSubject.pipe(
+      switchMap(() => this.repo.getAll().pipe(startWith([] as Order[])))
+    ),
+    this.translationService.lang$
+  ]).pipe(
+    map(([orders, lang]) => orders.map(o => this.mapTranslated(o, lang)))
+  );
+
+  refreshOrders() {
+    this.refreshSubject.next();
+  }
 
   placeOrder(
     shipping: ShippingForm,
@@ -28,9 +46,7 @@ export class OrderFacade {
     const cart = this.cart.getSnapshot();
     const currentUser = this.auth.currentUser();
 
-    const newOrder: Order = {
-      id: 0,
-      createdAt: '',
+    const newOrder: Partial<Order> = {
       total: cart.total,
       paymentMethod,
       deliveryMethod,
@@ -54,10 +70,11 @@ export class OrderFacade {
         city: shipping.city,
         postalCode: shipping.postal,
         country: shipping.country,
+        additionalNotes: shipping.additionalNotes,
       },
     };
 
-    return this.repo.place(newOrder).pipe(
+    return this.repo.place(newOrder as Order).pipe(
       map((order) => {
         this.cart.clear();
         return order;
@@ -66,6 +83,14 @@ export class OrderFacade {
   }
 
   getOrders(): Observable<Order[]> {
-    return this.repo.getAll();
+    return this.orders$;
+  }
+
+  private mapTranslated(o: Order, lang: string): Order {
+    return {
+      ...o,
+      status: lang === 'de' ? (o.statusDe || o.status) : o.status,
+      statusKey: o.status // Always keep English status for CSS selectors
+    };
   }
 }

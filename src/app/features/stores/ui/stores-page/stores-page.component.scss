@@ -5,14 +5,31 @@
     color: white;
 }
 
-.page-title {
+.page-title-section {
+    margin-bottom: 3.5rem;
     text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 2.5rem;
-    background: linear-gradient(to right, #ffffff, #00ffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .page-title {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, #fff 0%, #8a2be2 50%, #00ffff 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.3));
+    }
+
+    .page-subtitle {
+        opacity: 0.6;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: white;
+    }
 }
 
 .stores-grid {

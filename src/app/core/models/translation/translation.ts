@@ -123,6 +123,12 @@ export const translations: Record<Lang, Record<TranslationKey, string>> = {
     or: 'OR',
     guestCheckout: 'Guest Checkout',
     guestPrompt: 'No account required. You can create one later.',
+    orderHistory: 'Order History',
+    totalOrders: 'total orders',
+    startShopping: 'Start Shopping',
+    notes: 'Additional Notes',
+    street: 'Street',
+    additionalNotes: 'Additional Notes',
   },
 
   de: {
@@ -248,5 +254,11 @@ export const translations: Record<Lang, Record<TranslationKey, string>> = {
     or: 'ODER',
     guestCheckout: 'Gastbestellung',
     guestPrompt: 'Kein Konto erforderlich.',
+    orderHistory: 'Bestellverlauf',
+    totalOrders: 'Bestellungen insgesamt',
+    startShopping: 'Einkaufen starten',
+    notes: 'Zusätzliche Anmerkungen',
+    street: 'Straße',
+    additionalNotes: 'Zusätzliche Anmerkungen',
   },
 };
