@@ -21,11 +21,10 @@
 
 ---
 
-> [!IMPORTANT]
-> **Mock Data Mode**
+> [!NOTE]
+> **Backend Integration**
 >
-> QuantumCart currently runs fully in‑memory. All users, products, and orders are simulated.
-> Data **resets on page reload**.
+> QuantumCart is now fully integrated with the Go-based backend API. Ensure the API is running at `http://localhost:8080` for a complete experience.
 
 ---
 
@@ -190,9 +189,9 @@ src/app/features
 #### 3. Login, Registration, Profile ✅
 
 * Registration form, data storage
-* User profile (name, email, delivery address, phone)
-* Login system
-* Profile editing, forgot password flow
+* User profile (name, email, street, city, postal code, country, phone)
+* Login system with session persistence
+* Profile editing, forgot password flow with SMTP robustness
 
 #### 4. Past Orders ✅
 
@@ -226,12 +225,10 @@ src/app/features
 * Responsive & accessible (a11y) design
 * Multiple browser support, semantic HTML, ARIA labels, keyboard navigation, tooltips, skip-to-content, form label associations
 
-### 📅 Roadmap for Missing Features
-
-* Wire to backend API/Supabase
-* Replace `of(MOCK_DATA)` with HttpClient
-* Configure production environment
-* Implement JWT interceptor & global error handling
+### 📅 Roadmap
+* Production environment configuration
+* Global error handling & toast notifications
+* Real-time order tracking (WebSockets)
 
 ### 📊 Current Grade Estimate
 

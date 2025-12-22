@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -18,6 +18,7 @@ export class ProfilePageComponent implements OnInit {
   private authFacade = inject(AuthFacade);
   router = inject(Router);
   translationService = inject(TranslationService);
+  private cdr = inject(ChangeDetectorRef);
 
   user: AuthUser | null = null;
   editMode = false;
@@ -26,16 +27,22 @@ export class ProfilePageComponent implements OnInit {
   editName = '';
   editEmail = '';
   editPhone = '';
-  editAddress = '';
+  editAdditionalNotes = '';
+  editStreet = '';
+  editCity = '';
+  editPostalCode = '';
+  editCountry = '';
 
 
 
   ngOnInit(): void {
-    this.user = this.authFacade.currentUser();
-
-    if (!this.user) {
-      this.router.navigate(['/auth/login']);
-    }
+    this.authFacade.currentUser$.subscribe((user) => {
+      this.user = user;
+      if (!user) {
+        this.router.navigate(['/auth/login']);
+      }
+      this.cdr.markForCheck();
+    });
   }
 
   toggleEditMode() {
@@ -47,7 +54,11 @@ export class ProfilePageComponent implements OnInit {
       this.editName = this.user.name;
       this.editEmail = this.user.email;
       this.editPhone = this.user.phone || '';
-      this.editAddress = this.user.address || '';
+      this.editAdditionalNotes = this.user.additionalNotes || '';
+      this.editStreet = this.user.street || '';
+      this.editCity = this.user.city || '';
+      this.editPostalCode = this.user.postalCode || '';
+      this.editCountry = this.user.country || '';
     }
   }
 
@@ -56,6 +67,13 @@ export class ProfilePageComponent implements OnInit {
   }
 
   saveProfile() {
+    console.log('Saving profile...', {
+      name: this.editName,
+      email: this.editEmail,
+      phone: this.editPhone,
+      additionalNotes: this.editAdditionalNotes,
+    });
+
     if (!this.editName || !this.editEmail) {
       alert(this.translationService.t('requiredField'));
       return;
@@ -66,16 +84,22 @@ export class ProfilePageComponent implements OnInit {
         name: this.editName,
         email: this.editEmail,
         phone: this.editPhone || undefined,
-        address: this.editAddress || undefined,
+        additionalNotes: this.editAdditionalNotes || undefined,
+        street: this.editStreet || undefined,
+        city: this.editCity || undefined,
+        postalCode: this.editPostalCode || undefined,
+        country: this.editCountry || undefined,
       })
       .subscribe({
         next: (updatedUser) => {
+          console.log('Profile updated successfully', updatedUser);
           this.user = updatedUser;
           this.editMode = false;
+          this.cdr.markForCheck();
           alert(this.translationService.t('profileUpdated'));
         },
         error: (err) => {
-          console.error(err);
+          console.error('Failed to update profile', err);
           alert('Failed to update profile');
         },
       });
@@ -87,14 +111,20 @@ export class ProfilePageComponent implements OnInit {
   }
 
   deleteAccount() {
+    console.log('Delete account triggered');
     const confirmText =
       this.translationService.t('confirmDeleteAccount') ||
       'Are you sure you want to delete your account? This cannot be undone.';
 
-    if (!confirm(confirmText)) return;
+    if (!window.confirm(confirmText)) {
+      console.log('Delete account cancelled by user');
+      return;
+    }
 
+    console.log('Deleting account...');
     this.authFacade.deleteAccount().subscribe({
       next: (ok) => {
+        console.log('Account deleted status:', ok);
         if (ok) {
           this.router.navigate(['/auth/register']);
         } else {
@@ -102,7 +132,7 @@ export class ProfilePageComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.error(err);
+        console.error('Error deleting account:', err);
         alert(this.translationService.t('couldNotDeleteAccount'));
       },
     });

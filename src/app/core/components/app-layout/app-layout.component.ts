@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { TranslationService } from '../../services/translation/translation.service';
 import { AuthFacade } from '../../../features/auth/domain/auth.facade';
 import { CartFacade } from '../../../features/cart/domain/cart.facade';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-layout',
@@ -21,17 +22,22 @@ export class AppLayoutComponent implements OnInit {
   private authFacade = inject(AuthFacade);
   private cartFacade = inject(CartFacade);
   private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   lang = 'en';
 
   cartCount$ = this.cartFacade.cartCount$;
-
-  get isLoggedIn(): boolean {
-    return this.authFacade.isLoggedIn();
-  }
+  isLoggedIn$ = this.authFacade.currentUser$.pipe(map(user => !!user));
 
   ngOnInit() {
-    this.translationService.lang$.subscribe((l) => (this.lang = l));
+    this.translationService.lang$.subscribe((l) => {
+      this.lang = l;
+      this.cdr.markForCheck();
+    });
+
+    this.authFacade.currentUser$.subscribe(() => {
+      this.cdr.markForCheck();
+    });
   }
 
   changeLang(lang: string) {

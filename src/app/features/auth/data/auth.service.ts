@@ -1,123 +1,75 @@
-import { Injectable } from '@angular/core';
-import { MOCK_USERS } from './mock-users.json';
-import { AuthUser } from '../domain/auth.model';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap, map, BehaviorSubject } from 'rxjs';
+import { environment } from '../../../../environments/environment';
+import { AuthUser, LoginRequest, RegisterRequest, UpdateProfileRequest } from '../domain/auth.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private CURRENT_KEY = 'qc_user';
+  private http = inject(HttpClient);
+  private readonly baseUrl = `${environment.apiUrl}/auth`;
+  private readonly USER_KEY = 'qc_user';
+  private readonly TOKEN_KEY = 'qc_token';
 
-  registerUser(data: { name: string; email: string; password: string }): AuthUser {
-    const exists = MOCK_USERS.find((u) => u.email === data.email);
+  private userSubject = new BehaviorSubject<AuthUser | null>(this.getStoredUser());
+  public currentUser$ = this.userSubject.asObservable();
 
-    if (exists) throw new Error('User already exists.');
-
-    const newUser = {
-      id: Date.now(),
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      phone: undefined,
-      address: undefined,
-      createdAt: new Date().toISOString(),
-    };
-
-    MOCK_USERS.push(newUser as unknown as typeof MOCK_USERS[0]);
-    localStorage.setItem(this.CURRENT_KEY, JSON.stringify(newUser));
-
-    return this.toAuthUser(newUser);
+  registerUser(data: RegisterRequest): Observable<AuthUser> {
+    return this.http.post<AuthUser>(`${this.baseUrl}/register`, data).pipe(
+      tap((user) => this.saveUser(user))
+    );
   }
 
-  loginUser(data: { email: string; password: string }): AuthUser {
-    const user = MOCK_USERS.find((u) => u.email === data.email);
-
-    if (!user) throw new Error('User not found.');
-    if (user.password !== data.password) throw new Error('Invalid password.');
-
-    localStorage.setItem(this.CURRENT_KEY, JSON.stringify(user));
-
-    return this.toAuthUser(user);
+  loginUser(data: LoginRequest): Observable<AuthUser> {
+    return this.http.post<{ token: string; user: AuthUser }>(`${this.baseUrl}/login`, data).pipe(
+      tap((res) => {
+        localStorage.setItem(this.TOKEN_KEY, res.token);
+        this.saveUser(res.user);
+      }),
+      map((res) => res.user)
+    );
   }
 
   logout() {
-    localStorage.removeItem(this.CURRENT_KEY);
+    this.http.post(`${this.baseUrl}/logout`, {}).subscribe();
+    localStorage.removeItem(this.USER_KEY);
+    localStorage.removeItem(this.TOKEN_KEY);
+    this.userSubject.next(null);
   }
 
   currentUser(): AuthUser | null {
-    const raw = localStorage.getItem(this.CURRENT_KEY);
-    return raw ? this.toAuthUser(JSON.parse(raw)) : null;
+    return this.userSubject.value;
   }
 
-  deleteAccount(): boolean {
-    const raw = localStorage.getItem(this.CURRENT_KEY);
-    if (!raw) {
-      return false;
-    }
-
-    const current = JSON.parse(raw);
-
-    const index = MOCK_USERS.findIndex((u) => u.id === current.id || u.email === current.email);
-
-    if (index !== -1) {
-      MOCK_USERS.splice(index, 1);
-    }
-
-    this.logout();
-    return true;
+  getMe(): Observable<AuthUser> {
+    return this.http.get<AuthUser>(`${this.baseUrl}/me`).pipe(
+      tap((user) => this.saveUser(user))
+    );
   }
 
-  updateUserProfile(data: {
-    name: string;
-    email: string;
-    phone?: string;
-    address?: string;
-  }): AuthUser {
-    const raw = localStorage.getItem(this.CURRENT_KEY);
-    if (!raw) {
-      throw new Error('No user logged in');
-    }
-
-    const current = JSON.parse(raw);
-    const userIndex = MOCK_USERS.findIndex((u) => u.id === current.id);
-
-    if (userIndex === -1) {
-      throw new Error('User not found');
-    }
-
-
-    MOCK_USERS[userIndex] = {
-      ...MOCK_USERS[userIndex],
-      name: data.name,
-      email: data.email,
-      phone: data.phone || '',
-      address: data.address || '',
-    };
-
-
-    const updatedUser = MOCK_USERS[userIndex];
-    localStorage.setItem(this.CURRENT_KEY, JSON.stringify(updatedUser));
-
-    return this.toAuthUser(updatedUser);
+  deleteAccount(): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/me`).pipe(
+      tap(() => this.logout())
+    );
   }
 
-  private toAuthUser(u: unknown): AuthUser {
-    const user = u as AuthUser;
-    return {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-      address: user.address,
-      createdAt: user.createdAt,
-    };
+  updateUserProfile(data: UpdateProfileRequest): Observable<AuthUser> {
+    return this.http.put<AuthUser>(`${this.baseUrl}/me`, data).pipe(
+      tap((user) => this.saveUser(user))
+    );
   }
 
-  requestPasswordReset(email: string): boolean {
-    const user = MOCK_USERS.find((u) => u.email === email);
+  requestPasswordReset(email: string): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/forgot-password`, { email });
+  }
 
-    if (!user) {
-      throw new Error('User not found');
-    }
+  private saveUser(user: AuthUser) {
+    localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+    this.userSubject.next(user);
+  }
 
-    return true;
+  private getStoredUser(): AuthUser | null {
+    const raw = localStorage.getItem(this.USER_KEY);
+    return raw ? JSON.parse(raw) : null;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { TranslationKey } from '../../../../core/models/translation/translation.types';
 import { CommonModule, Location } from '@angular/common';
 import { Title } from '@angular/platform-browser';
@@ -14,6 +14,7 @@ import { CartFacade } from '../../../cart/domain/cart.facade';
   imports: [CommonModule, RouterModule],
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
@@ -36,10 +37,11 @@ export class ProductDetailComponent implements OnInit {
       }
       this.product = product;
       this.titleService.setTitle(`QuantumCart - ${product.name}`);
+      this.cdr.markForCheck();
     });
 
     this.translationService.lang$.subscribe(() => {
-      this.cdr.detectChanges();
+      this.cdr.markForCheck();
     });
   }
 
@@ -52,7 +54,12 @@ export class ProductDetailComponent implements OnInit {
   }
 
   getSpecLabel(key: string): string {
-    return this.translationService.t(key as TranslationKey);
+    const lowerKey = key.toLowerCase();
+    // Try to find translation for the lowercased key
+    const translated = this.translationService.t(lowerKey as TranslationKey);
+    // If translation service returns the key itself (meaning no translation found) or empty,
+    // we use the original key as a label.
+    return translated && translated !== lowerKey ? translated : key;
   }
 
   getSpecs(): Record<string, string> {

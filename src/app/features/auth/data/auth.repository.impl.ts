@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthRepository } from '../domain/auth.repository';
 import { AuthService } from './auth.service';
 import {
@@ -12,25 +12,22 @@ import {
 @Injectable()
 export class AuthRepositoryImpl implements AuthRepository {
   private authService = inject(AuthService);
+  currentUser$ = this.authService.currentUser$;
 
   register(req: RegisterRequest): Observable<AuthUser> {
-    try {
-      return of(this.authService.registerUser(req));
-    } catch (err: unknown) {
-      return throwError(() => err);
-    }
+    return this.authService.registerUser(req);
   }
 
   login(req: LoginRequest): Observable<AuthUser> {
-    try {
-      return of(this.authService.loginUser(req));
-    } catch (err: unknown) {
-      return throwError(() => err);
-    }
+    return this.authService.loginUser(req);
   }
 
   getCurrentUser(): AuthUser | null {
     return this.authService.currentUser();
+  }
+
+  fetchMe(): Observable<AuthUser> {
+    return this.authService.getMe();
   }
 
   isLoggedIn(): boolean {
@@ -42,27 +39,22 @@ export class AuthRepositoryImpl implements AuthRepository {
   }
 
   deleteAccount(): Observable<boolean> {
-    try {
-      return of(this.authService.deleteAccount());
-    } catch (err: unknown) {
-      return throwError(() => err);
-    }
+    return new Observable<boolean>((subscriber) => {
+      this.authService.deleteAccount().subscribe({
+        next: () => {
+          subscriber.next(true);
+          subscriber.complete();
+        },
+        error: (err) => subscriber.error(err)
+      });
+    });
   }
 
   updateProfile(req: UpdateProfileRequest): Observable<AuthUser> {
-    try {
-      return of(this.authService.updateUserProfile(req));
-    } catch (err: unknown) {
-      return throwError(() => err);
-    }
+    return this.authService.updateUserProfile(req);
   }
 
   requestPasswordReset(email: string): Observable<void> {
-    try {
-      this.authService.requestPasswordReset(email);
-      return of(void 0);
-    } catch (err: unknown) {
-      return throwError(() => err);
-    }
+    return this.authService.requestPasswordReset(email);
   }
 }

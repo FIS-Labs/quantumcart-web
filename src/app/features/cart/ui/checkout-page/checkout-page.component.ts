@@ -69,6 +69,7 @@ export class CheckoutPageComponent implements OnInit {
   city = '';
   postal = '';
   country = '';
+  additionalNotes = '';
 
   paymentMethod = 'credit';
   deliveryMethod = 'standard';
@@ -79,14 +80,28 @@ export class CheckoutPageComponent implements OnInit {
       this.total = cart.total;
     });
 
-    const user = this.authFacade.currentUser();
-    if (user) {
-      this.checkoutStep = 'shipping-form';
-      this.name = user.name;
-      this.email = user.email;
-    } else {
-      this.checkoutStep = 'auth-selection';
-    }
+    this.authFacade.currentUser$.subscribe((user) => {
+      if (user) {
+        this.checkoutStep = 'shipping-form';
+        this.name = user.name;
+        this.email = user.email;
+        this.street = user.street || '';
+        this.city = user.city || '';
+        this.postal = user.postalCode || '';
+        this.country = user.country || '';
+        this.additionalNotes = user.additionalNotes || '';
+      } else {
+        this.checkoutStep = 'auth-selection';
+        // Clear fields on logout
+        this.name = '';
+        this.email = '';
+        this.street = '';
+        this.city = '';
+        this.postal = '';
+        this.country = '';
+        this.additionalNotes = '';
+      }
+    });
   }
 
 
@@ -116,6 +131,7 @@ export class CheckoutPageComponent implements OnInit {
       city: this.city,
       postal: this.postal,
       country: this.country,
+      additionalNotes: this.additionalNotes,
     };
 
     this.orderFacade.placeOrder(shipping, this.paymentMethod, this.deliveryMethod).subscribe({

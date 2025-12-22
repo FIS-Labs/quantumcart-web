@@ -12,13 +12,13 @@
         {{ translationService.t('stores') }}
       </a>
 
-      @if (isLoggedIn) {
+      @if (isLoggedIn$ | async) {
       <a routerLink="/orders" routerLinkActive="active">
         {{ translationService.t('orders') }}
       </a>
       }
 
-      @if (isLoggedIn) {
+      @if (isLoggedIn$ | async) {
       <a routerLink="/profile" routerLinkActive="active">
         {{ translationService.t('profile') }}
       </a>
@@ -38,13 +38,13 @@
         <option value="de">🇩🇪 DE</option>
       </select>
 
-      @if (!isLoggedIn) {
+      @if ((isLoggedIn$ | async) === false) {
       <a routerLink="/auth/login" class="nav-btn">
         {{ translationService.t('signIn') }}
       </a>
       }
 
-      @if (isLoggedIn) {
+      @if (isLoggedIn$ | async) {
       <button class="nav-btn logout" (click)="logout()">
         {{ translationService.t('logout') }}
       </button>

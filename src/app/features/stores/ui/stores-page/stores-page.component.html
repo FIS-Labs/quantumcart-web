@@ -1,5 +1,8 @@
 <div class="stores-container">
-  <h1 class="page-title">{{ translationService.t('stores') }}</h1>
+  <header class="page-title-section">
+    <h1 class="page-title">{{ translationService.t('stores') }}</h1>
+    <p class="page-subtitle">Quantum Network</p>
+  </header>
 
   <div class="stores-grid">
     @for (store of stores$ | async; track store) {
@@ -32,8 +35,7 @@
       </div>
       <div class="info-group">
         <h4>🕒 {{ translationService.t('openingHours') }}</h4>
-        <p>{{ translationService.currentLang === 'en' ? store.openingHours : (store.openingHoursDe ??
-          store.openingHours) }}</p>
+        <p>{{ store.openingHours }}</p>
       </div>
     </div>
     }

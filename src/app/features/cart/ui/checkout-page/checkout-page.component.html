@@ -75,6 +75,9 @@
           {{ translationService.t('requiredField') }}
         </small>
         }
+        <textarea [(ngModel)]="additionalNotes"
+          [placeholder]="translationService.t('additionalNotes') || 'Additional Notes (e.g. gate code)'" rows="2"
+          class="full-width"></textarea>
       </div>
     </div>
     <div class="card glass">
