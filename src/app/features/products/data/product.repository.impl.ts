@@ -28,4 +28,6 @@ export class ProductRepositoryImpl implements ProductRepository {
   getById(id: number): Observable<Product | undefined> {
     return this.api.getById(id);
   }
+
+
 }

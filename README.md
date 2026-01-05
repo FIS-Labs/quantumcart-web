@@ -263,6 +263,46 @@ ng test
 
 ---
 
+## 🧪 Testing
+
+### Unit Tests
+
+Run the unit test suite with:
+```bash
+ng test
+```
+
+> **Note**: Unit tests use Vitest as the testing framework.
+
+### 🛡️ Quality Assurance Strategy
+
+We employ a comprehensive **Manual End-to-End (E2E) Testing** protocol to validate critical user journeys/flows. This ensures logical correctness, UI responsiveness, and seamless integration with the Go backend.
+
+#### 1. Verified User Flows (E2E Matrix)
+
+| Module | Feature / Flow | Validated Aspects | Status |
+| :--- | :--- | :--- | :---: |
+| **Catalog** | **Filtering** | • Chain filters (Brand + Price + Category)<br>• Empty state handling | ✅ |
+| **Cart** | **Checkout Process** | • Tax calculation (19% VAT)<br>• Grand total accuracy<br>• Guest vs. User checkout routing | ✅ |
+| **Auth** | **Identity Mgmt** | • JWT storage/retrieval<br>• Protected route guards<br>• Session persistence | ✅ |
+| **I18n** | **Localization** | • Instant language switch (EN ↔ DE)<br>• Currency & Number formatting | ✅ |
+
+#### 2. Test Environment Configuration
+
+All validation was performed in a controlled environment to mimic production usage.
+
+*   **Frontend Runtime**: Angular 21.0 (Dev Mode)
+*   **Backend Integration**: Local Go API Instance (`localhost:8080`)
+*   **Browsers Verified**:
+    *   Chrome 120+ (Blink Engine)
+    *   Safari 17+ (WebKit Engine)
+*   **Viewports**:
+    *   Desktop (1920×1080)
+    *   Tablet (iPad Pro)
+    *   Mobile (iPhone 14 Pro)
+
+---
+
 ## ❓ Troubleshooting
 
 <details>

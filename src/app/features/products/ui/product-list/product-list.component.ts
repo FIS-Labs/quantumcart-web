@@ -1,7 +1,6 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
-
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -45,6 +44,8 @@ export class ProductListComponent implements OnInit {
   minPrice = 0;
   maxPrice = 3000;
 
+
+
   ngOnInit() {
     this.loadData();
   }
@@ -58,6 +59,8 @@ export class ProductListComponent implements OnInit {
       this.cdr.markForCheck();
     });
   }
+
+
 
   populateCategories() {
     const lang = this.translationService.currentLang;
