@@ -52,7 +52,6 @@ graph TD
         direction TB
         RepoImpl[Repository Impl]
         Service[API Service]
-        Mock[Mock Data]
     end
 
     Component -->|Subscribes| Facade
@@ -61,7 +60,6 @@ graph TD
     Facade -->|Calls| RepoAbs
     RepoImpl -.->|Implements| RepoAbs
     RepoImpl -->|Calls| Service
-    Service -->|Returns| Mock
 
     style UI_Layer fill:#2a2a2a,stroke:#dd0031,stroke-width:2px,color:white
     style Domain_Layer fill:#2a2a2a,stroke:#8a2be2,stroke-width:2px,color:white
