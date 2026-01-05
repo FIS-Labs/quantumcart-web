@@ -14,4 +14,5 @@ export abstract class ProductRepository {
   ): Observable<PaginatedProducts>;
   abstract getAll(): Observable<Product[]>;
   abstract getById(id: number): Observable<Product | undefined>;
+
 }

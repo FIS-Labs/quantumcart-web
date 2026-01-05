@@ -23,6 +23,8 @@ export class ProductFacade {
     shareReplay(1)
   );
 
+
+
   allProducts$ = combineLatest([
     this.rawAllProducts$,
     this.translationService.lang$

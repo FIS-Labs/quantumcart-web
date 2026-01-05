@@ -46,4 +46,6 @@ export class ProductService {
   getReviews(productId: number): Observable<Review[]> {
     return this.http.get<Review[]>(`${this.baseUrl}/${productId}/reviews`);
   }
+
+
 }
